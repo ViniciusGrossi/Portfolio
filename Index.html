@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="index.css">
+    <title>Portfolio Round Icon</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&family=Roboto:wght@100;300;400&display=swap');
+
+:root {
+    --primary-color: #f9532d;
+    --primary-dark: #1F252E;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: #1F252E;
+    height: 100vh;
+    color: #ffffff;
+}
+/* Genral */
+.container {
+    padding: 0 8.4rem;
+}
+
+.img-w {
+    width: 100%;
+    height: auto;
+}
+/* Nav */
+header {
+    background: var(--primary-dark);
+    position: relative;
+    box-shadow: 0 4px 17px rgb(255 255 255 / 10%);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    opacity: 0;
+    animation: leftSideAni 1s ease forwards;
+}
+
+.logo a {
+    color: #fff;
+    text-decoration: none;
+}
+
+ul {
+    display: flex;
+    gap: .6rem;
+    list-style-type: none;
+    background-color: transparent;
+    overflow: hidden;
+}
+
+li a {
+    display: inline-block;
+    padding: .3rem 1rem;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: .7px;
+    border-radius: 36px;
+    line-height: 2;
+    transition: .3s;
+    opacity: 0;
+    animation: navani .3s ease forwards;
+    animation-delay: calc(.15s * var(--navAni));
+}
+
+li a.active,
+li a:hover {
+    color: var(--primary-color);
+}
+
+#click {
+    display: none;
+}
+
+.menu {
+    display: none;
+}
+
+.mode i {
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: var(--primary-color);
+    opacity: 0;
+    animation: rightSideAni 1.5s ease forwards;
+}
+
+/* Nav End */
+
+/* Section 1 */
+
+.main {
+    padding: 6rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(277px, 1fr));
+    row-gap: 2rem;
+    column-gap: 6rem;
+    align-items: center;
+}
+.main h3 {
+    color: #fff;
+    font-size: 1.5rem;
+    opacity: 0;
+    animation: topSideAni 1s ease forwards;
+}
+.main h1 {
+    color: #fff;
+    font-size: 4rem;
+    font-weight: 600;
+    opacity: 0;
+    animation: leftSideAni 1s ease forwards;
+    animation-delay: 1s;
+}
+* {
+	border: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+:root {
+	--hue: 223;
+	--bg1: hsl(var(--hue),10%,90%);
+	--bg2: hsl(var(--hue),10%,80%);
+	--fg1: hsl(var(--hue),10%,10%);
+	--fg2: hsl(var(--hue),10%,20%);
+	--primary1: hsl(var(--hue),90%,55%);
+	--primary2: hsl(var(--hue),90%,45%);
+	font-size: 16px;
+}
+body, button {
+	font: 1em/1.5 Nunito, sans-serif;
+}
+body {
+	background-color: var(--bg1);
+	color: var(--fg1);
+	height: 100vh;
+	place-items: center;
+}
+
+/* Main button styles */
+.btn {
+	background-color: transparent;
+	border-radius: 1.5em;
+	display: block;
+	position: relative;
+	width: 7.5em;
+	height: 3em;
+	transition: width 0.3s ease-in-out;
+}
+.btn:not(:disabled):active {
+	transform: translateY(0.1em);
+}
+.btn__text {
+	background-color: #f9532d;
+	border-radius: inherit;
+	color: #ffffff;
+    font-weight: bold;
+	display: inline-block;
+	padding: 0.75em 1.5em;
+	transition:
+		background-color 0.15s linear,
+		color 0.15s 0.3s ease-in-out;
+	width: 100%;
+    margin-top: 30px;
+}
+.btn__text:hover {
+    background-color: #ff370a; /* Escurecendo o laranja */
+}
+.btn:not(:disabled):active .btn__text {
+    background-color: #f9532d; /* Laranja */
+}
+.btn__progress {
+	overflow: visible;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 3em;
+	height: 3em;
+	visibility: hidden;
+    margin-top: 30px;
+}
+.btn__progress-track {
+	r: 12px;
+	stroke: var(--bg2);
+	stroke-width: 24;
+}
+.btn__progress-fill {
+	stroke: var(--primary1);
+	stroke-dashoffset: 125.66;
+}
+.btn__progress-check {
+	stroke: hsl(0,0%,100%);
+	stroke-dashoffset: 34;
+}
+
+/* Both states */
+.btn--running,
+.btn--done {
+	outline: none;
+	pointer-events: none;
+	width: 3em;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
+.btn--running .btn__text,
+.btn--done .btn__text {
+	color: transparent;
+	transition:
+		background-color 0.3s ease-in-out,
+		visibility 0.3s steps(1);
+}
+.btn--running .btn__progress,
+.btn--done .btn__progress {
+	visibility: visible;
+}
+
+/* Running state */
+.btn--running .btn__text {
+	background-color: var(--bg2);
+	visibility: hidden;
+}
+.btn--running .btn__progress {
+	transition: visibility 0.3s 0.3s steps(1,start);
+}
+.btn--running .btn__progress-track {
+    r: 20px;
+    stroke-width: 8;
+    transition:
+        r 0.3s 0.3s ease-in-out,
+        stroke 0.3s ease-in-out; /* Apenas a transição da cor */
+}
+.btn--running .btn__progress-fill {
+    stroke: #f9532d;
+	stroke-dashoffset: 0;
+	transition: stroke-dashoffset 2s 0.6s linear;
+}
+
+/* Done state */
+.btn--done .btn__progress-track {
+	stroke: #f9532d;
+	transition:
+		r 0.3s ease-in-out,
+		stroke-width 0.3s ease-in-out;
+}
+.btn--done .btn__progress-check {
+	stroke-dashoffset: 0;
+	transition: stroke-dashoffset 0.3s 0.3s ease-out;
+}
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--bg1: hsl(var(--hue),10%,10%);
+		--bg2: hsl(var(--hue),10%,20%);
+		--fg1: hsl(var(--hue),10%,90%);
+		--fg2: hsl(var(--hue),10%,80%);
+	}
+}
+.images {
+    margin-left: auto;
+    width: 300px;
+}   
+.images img {
+    border-radius: 50%;
+    box-shadow: 0 0 10px #D1D9E6;
+}
+
+/* Section 1 End */
+
+/* Roundin sec */
+  .main {
+    position: relative;
+  }
+  .big-circle {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    border: 3px solid #bbbbbb;
+    border-radius: 50%;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    -webkit-align-items: center;
+    justify-content: center;
+    -webkit-justify-content: center;
+    animation: Rotate 20s linear infinite;
+    -webkit-animation: Rotate 20s linear infinite;
+  }
+  .icon-block {
+    width: 64px;
+    height: 64px;
+    position: absolute;
+    border-radius: 50%;
+    display: flex;
+    display: flex;
+    align-items: center;
+    -webkit-align-items: center;
+    justify-content: center;
+    -webkit-justify-content: center;
+    background-color: #fff;
+    box-shadow: 0 0 10px #fff;
+    transition: background-color 0.3s ease, filter 0.3s ease;
+  }
+  .icon-block:hover {
+    filter: brightness(85%);
+    transition: filter 0.3s ease;
+    background-color: #d4d3d3 ;
+}
+  .icon-block a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+  .icon-block img {
+    margin: auto;
+    width: 60%;
+    height: auto;
+    animation: Rotate-reverse 20s linear infinite;
+    -webkit-animation: Rotate-reverse 20s linear infinite;
+  }
+  .icon-block:first-child {
+    top: 0;
+    left: 50%;
+    transform: translate(50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+  }
+  .icon-block:nth-child(2) {
+    top: 50%;
+    right: 0;
+    transform: translate(50%, -50%);
+    -webkit-transform: translate(50%, -50%);
+  }
+  .icon-block:nth-child(3) {
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    -webkit-transform: translate(-50%, 50%);
+  }
+  .icon-block:nth-child(4) {
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+  }
+  .rounding-sec {
+    position: relative;
+    height: 400px;
+    width: 400px;
+  }
+  .images {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+  }
+  /* carrossel */
+  body {
+  margin: 0;
+  font-family: 'Muli', sans-serif;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.carousel {
+  width: 100%;
+  overflow-x: scroll;
+  padding: 30px;
+  padding-top: 80px;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.carousel__container {
+  white-space: nowrap;
+  margin: 70px 0px;
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+.categories__title {
+ color: rgb(255, 255, 255);
+  font-size: 28px;
+  position: absolute;
+  padding-left: 30px;
+}
+
+.carousel-item {
+  width: 200px;
+  height: 250px;
+  border-radius: 20px;
+  background-color: #95bcd6;
+  overflow: hidden;
+  margin-right: 10px;
+  margin-top: 70px;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-transition: 1000ms all;
+  transition: 1000ms all;
+  -webkit-transform-origin: center left;
+  transform-origin: center left;
+  position: relative;
+}
+
+.carousel-item:hover ~ .carousel-item {
+  -webkit-transform: translate3d(100px, 0, 0);
+  transform: translate3d(100px, 0, 0);
+}
+
+.carousel__container:hover .carousel-item {
+  opacity: 0.3;
+}
+
+.carousel__container:hover .carousel-item:hover {
+  -webkit-transform: scale(1.5);
+  transform: scale(1.5);
+  opacity: 1;
+}
+
+.carousel-item__img {
+  width: 200px;
+  height: 250px;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+.carousel-item__img_modal {
+  width: 75%;
+  height: 300px;
+  float: right;
+  display: none;
+}
+.carousel-item__img_modal.active {
+  width: 75%;
+  height: 350px;
+  float: right;
+  display: block;
+}
+
+.carousel-item__details {
+  background: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    from(rgba(0, 0, 0, 0.9)),
+    to(rgba(0, 0, 0, 0))
+  );
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  font-size: 10px;
+  opacity: 0;
+  -webkit-transition: 450ms opacity;
+  transition: 450ms opacity;
+  padding: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.carousel-item__details:hover {
+  opacity: 1;
+}
+
+.carousel-item__details span {
+  /* width: 10px;
+  height: 10px; */
+  font-size: 0.9rem;
+  color: #2ecc71;
+  /* background-color: white; */
+}
+
+.carousel-item__details .controls {
+  padding-top: 180px;
+}
+
+.carousel-item__details .carousel-item__details--title {
+  color: #ffffff;
+  text-align: center;
+  font-size: 18px;
+  margin: 5px 0;
+
+}
+dialog::backdrop{
+    background-color: rgb(0 0 0 / .3);
+}
+dialog{
+  width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #00000080;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: .5rem;
+    box-shadow: 0 0 1em rgb(0 0 0 / .3);
+    z-index: 999;
+
+}
+.modal{
+    width: 80%;
+    height: 80%;
+    min-width: 450px;
+    min-height: 400px;
+    background-color: #ffffff0a;
+    backdrop-filter: blur(10px);
+    padding: 50px;
+    border-radius: 20px;
+    position: relative;
+    
+}
+.close_button {
+  position: absolute;
+  top: 10px; /* Ajuste conforme necessário */
+  right: 10px; /* Ajuste conforme necessário */
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ffffff0a;
+  border: none;
+  color: #f9532d;
+  font-size: 20px;
+  line-height: 1;
+  text-align: center;
+  cursor: pointer;
+}
+.close_button:hover {
+  background-color: #ffffff34;
+}
+.link_button{
+  position: absolute;
+  color: #fff;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ffffff2a;
+  font-size: 25px;
+  line-height: 1;
+  text-align: center;
+  cursor: pointer;
+  padding: 8px 10px;
+}
+.project_title{
+  width: 160px;
+  height: 20px;
+  font-size: 17px;
+  text-align: center;
+  margin-top: 50px;
+}
+.description{
+  color: #fff;
+  font-size: 17px;
+  margin-top: 7vh;
+  float: inline-end;
+}
+.principle_tools{
+  width: 20%;
+}
+.tools{
+  color: #fff;
+  text-align:left;
+}
+.principle_tools ul{
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  display: block;
+}
+.principle_tools ul li{
+  font-size: 19px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  color: #fff;
+}
+.prev{
+  display: none;
+}
+.next{
+  display: none;
+}
+.btn{
+  cursor: pointer;
+}
+  /* keyframe animation */
+  
+  @keyframes Rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @-webkit-keyframes Rotate {
+    from {
+      -webkit-transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes Rotate-reverse {
+    from {
+      transform: rotate(360deg);
+    }
+    to {
+      transform: rotate(0deg);
+    }
+  }
+  
+  @-webkit-keyframes Rotate-reverse {
+    from {
+      -webkit-transform: rotate(360deg);
+    }
+    to {
+      -webkit-transform: rotate(0deg);
+    }
+  }
+  
+/* Animation */
+@keyframes leftSideAni {
+    0% {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+@keyframes navani {
+    0% {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+@keyframes topSideAni {
+    0% {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .container {
+        padding: 0 4.4rem;
+    }
+    .main h3 {
+        color: #000;
+        margin-top: 1rem;
+    }
+}
+@media screen and (max-width: 990px) {
+    .main {
+        grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    }
+    .rounding-sec {
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 0 1.6rem;
+    }
+}
+
+@media screen and (max-width:600px) {
+    body {
+        height: auto;
+    }
+    header {
+        height: auto;
+        background-color: var(--primary-dark);
+    }
+
+    ul {
+        background: var(--primary-dark);
+        width: 100%;
+        height: 100vh;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        top: 3.4rem;
+        left: -100%;
+        z-index: 111111;
+    }
+
+    .menu {
+        display: block;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+
+    #click:checked~ul {
+        left: 0%;
+        transition: all 0.3s ease;
+    }
+    .main {
+        grid-template-columns: repeat(auto-fit, minmax(266px, 1fr));
+        margin-top: 2rem;
+        overflow-x: hidden;
+    }
+    .icon-block {
+        width: 50px;
+        height: 50px;
+    }
+    .rounding-sec {
+        height: 300px;
+        width: 300px;
+    }
+    .images {
+        width: 200px;
+    }
+}
+    </style>
+</head>
+
+<body>
+    <header class="container">
+        <div class="page-header">
+            
+            <input type="checkbox" id="click">
+
+            <label for="click" class="mainicon">
+                <div class="menu">
+                    <i class='bx bx-menu'></i>
+                </div>
+            </label>
+            <ul>
+                <li><a href="#" class="active" style="--navAni:1">Home</a></li>
+            <!--<li><a href="#" style="--navAni:2">About</a></li>
+                <li><a href="#" style="--navAni:3">Skills</a></li>
+                <li><a href="#" style="--navAni:4">Portfolio</a></li>
+                <li><a href="#" style="--navAni:5">Contact</a></li>-->
+            </ul>
+        </div>
+    </header>
+
+
+    <section class="container">
+        <div class="main">
+            <div class="rounding-sec">
+                <div class="big-circle">
+                    <div class="icon-block">
+                        <a href="https://github.com/ViniciusGrossi" target="_blank">
+                            <img src="C:/Users/User/Documents/Data Analysis/Comunidade DS/Portfolio/img/github-icon.png"
+                            alt="" /></a>
+                    </div>
+                    <div class="icon-block">
+                        <a href="mailto:viniciussggrossi@gmail.com" target="_blank">
+                            <img src="C:/Users/User/Documents/Data Analysis/Comunidade DS/Portfolio/img/gmail-icon.png"
+                            alt="" /></a>
+                    </div>
+                    <div class="icon-block">
+                        <a href="https://www.linkedin.com/in/viniciusgrossi/" target="_blank">
+                            <img src="C:/Users/User/Documents/Data Analysis/Comunidade DS/Portfolio/img/linkedin-icon.png"
+                            alt="" /></a> 
+                    </div>
+                    <div class="icon-block">
+                        <a href="" target="_blank">
+                            <img src="C:\Users\User\Documents\Data Analysis\Comunidade DS\Portfolio\img\medium-icon.png"
+                            alt="" /></a> 
+                    </div>
+                </div>
+                <div class="images">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhwX1hNs1uTxT4esqcM-g4cIPSSqGfCotsrSqPkI8aQMNoJMxECIOqHeVAPlGsSD6uEn7K5Fv_9m-vVdt4kaig7dInalmeBEnMUMbcFloJX3-y_lh6J8zz-PkIENB_1k8iAx5YEdP4FlBD0_U_JWbZC9TkP70Yd71hxULL5SbwvsZIen4_dtOOltgBpcGA/s1600/img_1.png" alt="" class="img-w">
+                </div>
+            </div>
+            <div class="detail">
+                <h3>Olá, eu sou</h3>
+                <h1><span style="color:#f9532d;">Vinicius</span> Grossi</h1>
+                <p>Profissional apaixonado por análise e ciência de dados, especializado em projetos inovadores para gerar insights acionáveis. Especialista em transformar dados complexos em soluções práticas e impactantes, aproveitando a tecnologia, a inovação e explorando o machine learning.</p>
+                <button class="btn" type="button">
+                    <span class="btn__text">Currículo</span>
+                    <svg class="btn__progress" viewBox="0 0 48 48" width="48px" height="48px">
+                        <circle class="btn__progress-track" r="20" cx="24" cy="24" fill="none" stroke="#c7cad1" stroke-width="8" />
+                        <circle class="btn__progress-fill" r="20" cx="24" cy="24" fill="none" stroke="#000000" stroke-width="8" transform="rotate(-90,24,24)" stroke-dasharray="125.66 125.66" stroke-dashoffset="125.66" />
+                        <polyline class="btn__progress-check" points="12,24 20,32 36,16" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="34 34" stroke-dashoffset="34" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+      <section class="carousel">
+        <h2 class="categories__title">Meus Projetos</h2>
+        <div class="carousel__container">
+          <div class="project title">
+            <h4 class="project_title">Painel Gerencial para <br>Negócios com Streamlit</h4>
+          </div>
+          <div class="carousel-item">
+            <img
+              class="carousel-item__img"
+              src="C:/Users/User/Documents/Data Analysis/Comunidade DS/Portfolio/img/Zero_Hunger.png"
+              alt="people"
+            />
+            <div class="carousel-item__details second-button">
+              <div class="controls">
+                <span class="fas fa-play-circle"></span>
+                <span class="fas fa-plus-circle"></span>
+              </div>
+              <h5 class="carousel-item__details--title">Projeto Fome Zero</h5>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img
+              class="carousel-item__img"
+              src="https://images.pexels.com/photos/1785001/pexels-photo-1785001.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+              alt="people"
+            />
+            <div class="carousel-item__details">
+              <div class="controls">
+                <span class="fas fa-play-circle"></span>
+                <span class="fas fa-plus-circle"></span>
+              </div>
+              <h5 class="carousel-item__details--title">Descriptive Title</h5>
+              <h6 class="carousel-item__details--subtitle">Date and Duration</h6>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img
+              class="carousel-item__img"
+              src="https://images.pexels.com/photos/417344/pexels-photo-417344.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+              alt="people"
+            />
+            <div class="carousel-item__details">
+              <div class="controls">
+                <span class="fas fa-play-circle"></span>
+                <span class="fas fa-plus-circle"></span>
+              </div>
+              <h5 class="carousel-item__details--title">Descriptive Title</h5>
+              <h6 class="carousel-item__details--subtitle">Date and Duration</h6>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img
+              class="carousel-item__img"
+              src="https://images.pexels.com/photos/1071882/pexels-photo-1071882.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+              alt="people"
+            />
+            <div class="carousel-item__details">
+              <div class="controls">
+                <span class="fas fa-play-circle"></span>
+                <span class="fas fa-plus-circle"></span>
+              </div>
+              <h5 class="carousel-item__details--title">Descriptive Title</h5>
+              <h6 class="carousel-item__details--subtitle">Date and Duration</h6>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img
+              class="carousel-item__img"
+              src="https://images.pexels.com/photos/417344/pexels-photo-417344.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+              alt="people"
+            />
+            <div class="carousel-item__details">
+              <div class="controls">
+                <span class="fas fa-play-circle"></span>
+                <span class="fas fa-plus-circle"></span>
+              </div>
+              <h5 class="carousel-item__details--title">Descriptive Title</h5>
+              <h6 class="carousel-item__details--subtitle">Date and Duration</h6>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img
+              class="carousel-item__img"
+              src="https://images.pexels.com/photos/6945/sunset-summer-golden-hour-paul-filitchkin.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+              alt="people"
+            />
+            <div class="carousel-item__details">
+              <div class="controls">
+                <span class="fas fa-play-circle"></span>
+                <span class="fas fa-plus-circle"></span>
+              </div>
+              <h5 class="carousel-item__details--title">Descriptive Title</h5>
+              <h6 class="carousel-item__details--subtitle">Date and Duration</h6>
+            </div>
+          </div>
+      </section>
+      
+      
+<dialog id="modalDialog" >
+    <div class="modal">
+        <img
+            class="carousel-item__img_modal active"
+            src="C:/Users/User/Documents/Data Analysis/Comunidade DS/Portfolio/img/Screenshot_1.png"
+            alt="people"
+          />
+          <img
+            class="carousel-item__img_modal"
+            src="C:/Users/User/Documents/Data Analysis/Comunidade DS/Portfolio/img/Screenshot_2.png"
+            alt="people"
+          />
+          <img
+            class="carousel-item__img_modal"
+            src="C:/Users/User/Documents/Data Analysis/Comunidade DS/Portfolio/img/Screenshot_3.png"
+            alt="people"
+          />
+          <div class="principle_tools">
+            <h3 class="tools">Ferramentas Utilizadas:</h3>
+          <ul>
+            <li>Python</li>
+            <li>Jupyter Lab</li>
+            <li>Terminal</li>
+            <li>Streamlit</li>
+            <li>Streamlit Cloud</li>
+            <li>Github</li>
+          </ul>
+          </div>
+        <p class="description">Neste projeto, utilizei habilidades avançadas de Programação em Python e manipulação de dados para desenvolver um painel gerencial inovador para uma empresa marketplace de delivery de comida. Integrando pensamento estratégico e lógica de negócios, juntamente com ferramentas de desenvolvimento web como Streamlit e Github, o resultado final foi um painel interativo com as principais métricas de negócio e vários Insights.<br> Hospedado em um ambiente Cloud, o painel é acessível através de um link web em qualquer dispositivo conectado à internet.</p>
+        <button class="close_button">X</button>
+        <a href="https://github.com/ViniciusGrossi/Projeto-Fome-Zero " target="_blank">
+          <button class="link_button">Projeto Completo</button> 
+        </a>
+        <button class="prev">Prev</button>
+        <button class="next">Next</button>
+        
+    </div>
+</dialog>
+
+            <script>
+              document.addEventListener("DOMContentLoaded", function () {
+    const prevButton = document.querySelector(".prev");
+    const nextButton = document.querySelector(".next");
+    const images = document.querySelectorAll(".carousel-item__img_modal");
+
+    let currentImageIndex = 0;     
+      
+    function showImage(index) {
+        images.forEach((image) => {
+            image.classList.remove("active");
+        });
+        images[index].classList.add("active");
+    }
+
+    function nextImage() {
+        currentImageIndex++;
+        if (currentImageIndex >= images.length) {
+            currentImageIndex = 0;
+        }
+        showImage(currentImageIndex);
+    }
+
+    function prevImage() {
+        currentImageIndex--;
+        if (currentImageIndex < 0) {
+            currentImageIndex = images.length - 1;
+        }
+        showImage(currentImageIndex);
+    }
+
+    prevButton.addEventListener("click", prevImage);
+    nextButton.addEventListener("click", nextImage);
+    setInterval(nextImage, 5000);
+});
+
+                const secondBtn = document.querySelector(".second-button");
+                const modal = document.querySelector("dialog");
+                const buttonClose = document.querySelector(".close_button");
+                secondBtn.onclick = function() {
+                modal.style.display = "flex"; // Alterado para flex
+                }
+                buttonClose.addEventListener("click", function() {
+                  modal.style.display = "none";
+                });
+
+                window.addEventListener("DOMContentLoaded", () => {
+                
+                  const btn = document.querySelector("button");
+                  var doneTimeout = null,
+                    resetTimeout = null;
+              
+                  if (btn) {
+                    btn.addEventListener("click", function () {
+                      const runClass = "btn--running";
+                      const doneClass = "btn--done";
+                      const submitDuration = 2000;
+                      const resetDuration = 1500;
+              
+                      this.disabled = true;
+                      this.classList.add(runClass);
+              
+                      clearTimeout(doneTimeout);
+                      clearTimeout(resetTimeout);
+              
+                      doneTimeout = setTimeout(() => {
+                        this.classList.remove(runClass);
+                        this.classList.add(doneClass);
+              
+                        resetTimeout = setTimeout(() => {
+                          this.disabled = false;
+                          this.classList.remove(doneClass);
+                        }, resetDuration);
+                      }, 600 + submitDuration);
+                    });
+                  }
+        }
+                );
+              
+        
+              </script>    
+             
+            
+</body>
+</html>
