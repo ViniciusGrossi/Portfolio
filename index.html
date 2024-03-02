@@ -711,6 +711,18 @@ dialog{
     .container {
         padding: 0 1.6rem;
     }
+    .main h3 {
+        color: #000;
+        margin-top: 1rem;
+    }
+    .rounding-sec {
+        margin: auto;
+        height: 250px; /* Adjust according to your design */
+        width: 250px; /* Adjust according to your design */
+    }
+    .images {
+        width: 150px; /* Adjust according to your design */
+    }
 }
 
 @media screen and (max-width:600px) {
@@ -737,11 +749,13 @@ dialog{
 
     .menu {
         display: block;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         font-weight: bold;
         color: var(--primary-color);
     }
-
+    .container {
+        padding: 0 1rem; /* Adjust padding for smaller screens */
+    }
     #click:checked~ul {
         left: 0%;
         transition: all 0.3s ease;
@@ -750,6 +764,10 @@ dialog{
         grid-template-columns: repeat(auto-fit, minmax(266px, 1fr));
         margin-top: 2rem;
         overflow-x: hidden;
+    }
+    .big-circle {
+        width: 200px; /* Adjust circle size for smaller screens */
+        height: 200px; /* Adjust circle size for smaller screens */
     }
     .icon-block {
         width: 50px;
