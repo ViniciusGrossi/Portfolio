@@ -735,7 +735,7 @@ dialog{
         background-color: var(--primary-dark);
     }
     .detail h3{
-        color: #fff;
+        color: #000;
     }
     .menu {
         display: block;
