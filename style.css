@@ -735,8 +735,12 @@ dialog{
         background-color: var(--primary-dark);
     }
     .detail h3{
-        color: #000;
+        color: #fff;
     }
+    .detail p{
+	color: #fff;    
+    }
+	    
     .menu {
         display: block;
         font-size: 1.5rem;
