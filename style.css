@@ -728,6 +728,7 @@ dialog{
 @media screen and (max-width:600px) {
     body {
         height: auto;
+	background-color: var(--primary-dark);
     }
     header {
         height: auto;
