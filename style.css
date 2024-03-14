@@ -825,6 +825,7 @@ dialog{
 @media screen and (max-width:600px) {
     body {
         height: auto;
+	background-color: #1F252E;
     }
     header {
         height: auto;
