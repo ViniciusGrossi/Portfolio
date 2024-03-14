@@ -385,7 +385,7 @@ body {
   width: 100%;
   overflow-x: scroll;
   padding: 30px;
-  padding-top: 80px;
+  padding-top: 20px;
   position: relative;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -399,7 +399,8 @@ body {
 }
 
 .categories__title {
- color: rgb(255, 255, 255);
+  margin-top: 30px;
+  color: rgb(255, 255, 255);
   font-size: 28px;
   position: absolute;
   padding-left: 30px;
@@ -445,7 +446,7 @@ body {
   display: none;
 }
 .carousel-item__img_modal.active {
-  width: 75%;
+  width: 68%;
   height: 350px;
   float: right;
   display: block;
@@ -549,7 +550,7 @@ dialog{
   background-color: #ffffff34;
 }
 .link_button{
-  position: absolute;
+  position: relative;
   color: #fff;
   margin-top: 10px;
   border: none;
@@ -560,6 +561,13 @@ dialog{
   text-align: center;
   cursor: pointer;
   padding: 8px 10px;
+  display: inline-block;
+  margin-right: 10px;
+  transition: all 0.3s;
+}
+.link_button:hover {
+  background-color: #ffffff4d;
+  transform: scale(1.1);
 }
 .project_title{
   width: 160px;
@@ -601,6 +609,93 @@ dialog{
 }
 .btn{
   cursor: pointer;
+}
+
+/* Botão Skills */
+
+  .category-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+.left-column,
+.right-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 0 10px;
+}
+.category {
+
+    margin: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    height: 200px;
+}
+
+.category h2 {
+    color: #ffffff;
+    font-size: 20px;
+    margin:0px;
+}
+.skills {
+    padding: 0;
+    margin-top: 10px;
+    margin-left: 20px;
+    flex-direction: column;
+}
+.skills li {
+    color: #d1d1d1;
+    margin-bottom: 10px;
+    font-size: 15px;
+    
+}
+.category-content {
+    flex-grow: 1;
+}
+.icon-container {
+    margin-right: 20px;
+}
+.diamond {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin: 20px;
+}
+.diamond::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  transform: rotate(45deg);
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.diamond:hover::before {
+  transform: rotate(45deg) scale(1.1) translateZ(0);
+  background-color: #f9532d;
+  left: -5px;
+  top: -5px;
+  width: calc(100% + 10px);
+  height: calc(100% + 10px);
+}
+.icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+}
+.categories__skills {
+  font-size: 28px;
+  margin-top: 20px;
 }
   /* keyframe animation */
   
@@ -677,7 +772,7 @@ dialog{
         padding: 0 4.4rem;
     }
     .main h3 {
-        color: #000;
+        color: #ffffff;
         margin-top: 1rem;
     }
     .carousel-item__img_modal.active {
@@ -709,6 +804,8 @@ dialog{
         margin-top: 3vh;
         float: inline-end;
       }
+      
+
 }
 @media screen and (max-width: 990px) {
     .main {
@@ -728,7 +825,6 @@ dialog{
 @media screen and (max-width:600px) {
     body {
         height: auto;
-	background-color: var(--primary-dark);
     }
     header {
         height: auto;
@@ -737,10 +833,6 @@ dialog{
     .detail h3{
         color: #fff;
     }
-    .detail p{
-	color: #fff;    
-    }
-	    
     .menu {
         display: block;
         font-size: 1.5rem;
@@ -772,7 +864,10 @@ dialog{
         height: 80vh;
     }
     .carousel-item__img_modal.active {
-        display: none;
+        margin-top: 15px;
+        margin-bottom: 10px;
+        width: 100%;
+        height:100%;
       }
     .tools{
         margin-top: 30px;
@@ -797,8 +892,10 @@ dialog{
         order: 2; /* Define a ordem das ferramentas principais */
     }
     .link_button {
-        position: fixed;
-        top: 20px;
+      position: relative;
+      top: 60px;
+      left: 50%;
+      transform: translate(-50%, -50%);
         z-index: 999;
     }
     .close_button{
@@ -807,7 +904,23 @@ dialog{
         width: 40px;
         height: 40px; /* Ajuste conforme necessário */
     }
-    .project_title{
-	color: #fff;
+    .category-wrapper {
+      flex-direction: column;
+    }
+  
+    .left-column,
+    .right-column {
+      flex: auto;
+      margin: 0;
+    }
+    .category{
+      margin-top: 1px;
+      margin-bottom: 1px;
+      padding: 10px;
+    }
+    .category-content {
+      align-items: flex-start;
+      height: 150px;
+      overflow-y: auto;
     }
 }
