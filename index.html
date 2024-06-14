@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <title>Portfolio Vinicius Grossi</title>
+    
+    
+</head>
+
+<body>
+    <header class="container">
+        <div class="page-header">    
+            <input type="checkbox" id="click">
+            <label for="click" class="mainicon">
+                <div class="menu">
+                    <i class='bx bx-menu'></i>
+                </div>
+            </label>
+            <ul>
+                <li><a href="#" class="active" style="--navAni:1">Home</a></li>
+                <li><a href="#category-wrapper"  style="--navAni:3">Habilidades</a></li>
+                <li><a href="#carousel" style="--navAni:3">Projetos</a></li>
+                <!--<li><a href="#" style="--navAni:4">Portfolio</a></li>
+                <li><a href="#" style="--navAni:5">Contact</a></li>-->
+            </ul>
+        </div>
+    </header>
+
+    <section class="container">
+        <div class="main">
+            <div class="rounding-sec">
+                <div class="big-circle">
+                    <div class="icon-block">
+                        <a href="https://github.com/ViniciusGrossi" target="_blank">
+                            <img src="img/Icons/github-icon.png"
+                            alt="" /></a>
+                    </div>
+                    <div class="icon-block">
+                        <a href="mailto:viniciussggrossi@gmail.com" target="_blank">
+                            <img src="img/Icons/gmail-icon.png"
+                            alt="" /></a>
+                    </div>
+                    <div class="icon-block">
+                        <a href="https://www.linkedin.com/in/viniciusgrossi/" target="_blank">
+                            <img src="img/Icons/linkedin-icon.png"
+                            alt="" /></a> 
+                    </div>
+                    <div class="icon-block">
+                        <a href="" target="_blank">
+                            <img src="img/Icons/medium-icon.png"
+                            alt="" /></a> 
+                    </div>
+                </div>
+                <div class="images">
+                    <img src="" alt="" class="img-w">
+                </div>
+            </div>
+            <div class="detail">
+                <h3>Olá, eu sou</h3>
+                <h1><span style="color:#f9532d;">Vinicius</span> Grossi</h1>
+                <p>Profissional apaixonado por análise e ciência de dados, especializado em projetos inovadores para gerar insights acionáveis. Especialista em transformar dados complexos em soluções práticas e impactantes, aproveitando a tecnologia, a inovação e explorando o machine learning.</p>
+                <a href="https://drive.google.com/uc?export=download&id=1IPU2M5SFaG3ZxyUY9VlcTrQRVaKOLpS0" class="btn-link">
+                  <button class="btn" type="button">
+                      <span class="btn__text">Currículo</span>
+                      <svg class="btn__progress" viewBox="0 0 48 48" width="48px" height="48px">
+                          <circle class="btn__progress-track" r="20" cx="24" cy="24" fill="none" stroke="#c7cad1" stroke-width="8" />
+                          <circle class="btn__progress-fill" r="20" cx="24" cy="24" fill="none" stroke="#000000" stroke-width="8" transform="rotate(-90,24,24)" stroke-dasharray="125.66 125.66" stroke-dashoffset="125.66" />
+                          <polyline class="btn__progress-check" points="12,24 20,32 36,16" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="34 34" stroke-dashoffset="34" />
+                      </svg>
+                  </button>
+                </a>
+            </div>
+        </div>
+        <h2 class="categories__skills">Habilidades</h2>
+        <div class="category-wrapper" id="category-wrapper">
+          <div class="left-column">
+              <div class="category">
+                  <div class="icon-container">
+                      <div class="diamond">
+                        
+                          <img src="img/Skills/python.png" alt="" class="icon">
+                      </div>
+                  </div>
+                  <div class="category-content">
+                      <h2>Linguagens de Programação</h2>
+                      <ul class="skills">
+                          <li>Python com foco em análise de dados (Pandas e Numpy)</li>
+                          <li>Pensamento Estratégico</li>
+                          <li>Processos de automação</li>
+                          <li>Reconhecimento de Imagens com OCR</li>
+                          <li>Conceitos de ETL</li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="category">
+                  <div class="icon-container">
+                      <div class="diamond">
+                          <img src="img/Skills/estatistica.png" alt="" class="icon">
+                      </div>
+                  </div>
+                  <div class="category-content">
+                      <h2>Estatística</h2>
+                      <ul class="skills">
+                          <li>Estatística descritiva</li>
+                          <li>Probabilidade</li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="category">
+                  <div class="icon-container">
+                      <div class="diamond">
+                          <img src="img/Skills/banco-de-dados.png" alt="" class="icon">
+                      </div>
+                  </div>
+                  <div class="category-content">
+                      <h2>Banco de dados</h2>
+                      <ul class="skills">
+                          <li>SQL para extração de dados</li>
+                          <li>Banco de Dados SQLite</li>
+                          <li>Filtragem de dados</li>
+                          <li>Modelagem de dados</li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+          <div class="right-column">
+              <div class="category">
+                  <div class="icon-container">
+                      <div class="diamond">
+                          <img src="img/Skills/visualizacao-de-dados.png" alt="" class="icon">
+                      </div>
+                  </div>
+                  <div class="category-content">
+                      <h2>Visualização de Dados</h2>
+                      <ul class="skills">
+                          <li>Matplotlib, Seaborn, Plotly</li>
+                          <li>Streamlit</li>
+                          <li>Power BI</li>	
+                      </ul>
+                  </div>
+              </div>
+              <div class="category">
+                  <div class="icon-container">
+                      <div class="diamond">
+                          <img src="img/Skills/machine-learning.png" alt="" class="icon">
+                      </div>
+                  </div>
+                  <div class="category-content">
+                      <h2>Machine Learning</h2>
+                      <ul class="skills">
+                          <li>Em processo...</li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="category">
+                  <div class="icon-container">
+                      <div class="diamond">
+                          <img src="img/Skills/engenharia-de-software.png" alt="" class="icon">
+                      </div>
+                  </div>
+                  <div class="category-content">
+                      <h2>Engenharia de Software</h2>
+                      <ul class="skills">
+                          <li>Github</li>
+                          <li>Streamlit Cloud</li>
+                          <li>Git</li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+      <section class="carousel" id="carousel">
+        <h2 class="categories__title">Projetos</h2>
+        <div class="carousel__container">
+
+            <!-- Card 1 -->
+            <div class="carousel-item" id="card-projeto1">
+                <img class="carousel-item__img" src="img/Card1/Zero_Hunger.png" alt="Projeto 1">
+                <div class="carousel-item__details">
+                    <div class="controls">
+                        <span class="fas fa-play-circle"></span>
+                        <span class="fas fa-plus-circle"></span>
+                    </div>
+                    <h5 class="carousel-item__details--title">Projeto 1</h5>
+                    <h6 class="carousel-item__details--subtitle">Data e Duração</h6>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="carousel-item" id="card-projeto2">
+                <img class="carousel-item__img" src="img/Card2/mercado_livre.png" alt="Projeto 2">
+                <div class="carousel-item__details">
+                    <div class="controls">
+                        <span class="fas fa-play-circle"></span>
+                        <span class="fas fa-plus-circle"></span>
+                    </div>
+                    <h5 class="carousel-item__details--title">Projeto 2</h5>
+                    <h6 class="carousel-item__details--subtitle">Data e Duração</h6>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="carousel-item" id="card-projeto3">
+                <img class="carousel-item__img" src="https://images.pexels.com/photos/1071882/pexels-photo-1071882.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Projeto 3">
+                <div class="carousel-item__details">
+                    <div class="controls">
+                        <span class="fas fa-play-circle"></span>
+                        <span class="fas fa-plus-circle"></span>
+                    </div>
+                    <h5 class="carousel-item__details--title">Projeto 3</h5>
+                    <h6 class="carousel-item__details--subtitle">Data e Duração</h6>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="carousel-item" id="card-projeto4">
+                <img class="carousel-item__img" src="https://images.pexels.com/photos/417344/pexels-photo-417344.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="Projeto 4">
+                <div class="carousel-item__details">
+                    <div class="controls">
+                        <span class="fas fa-play-circle"></span>
+                        <span class="fas fa-plus-circle"></span>
+                    </div>
+                    <h5 class="carousel-item__details--title">Projeto 4</h5>
+                    <h6 class="carousel-item__details--subtitle">Data e Duração</h6>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="carousel-item" id="card-projeto5">
+                <img class="carousel-item__img" src="https://images.pexels.com/photos/6945/sunset-summer-golden-hour-paul-filitchkin.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Projeto 5">
+                <div class="carousel-item__details">
+                    <div class="controls">
+                        <span class="fas fa-play-circle"></span>
+                        <span class="fas fa-plus-circle"></span>
+                    </div>
+                    <h5 class="carousel-item__details--title">Projeto 5</h5>
+                    <h6 class="carousel-item__details--subtitle">Data e Duração</h6>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="carousel-item" id="card-projeto6">
+                <img class="carousel-item__img" src="https://images.pexels.com/photos/6945/sunset-summer-golden-hour-paul-filitchkin.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Projeto 6">
+                <div class="carousel-item__details">
+                    <div class="controls">
+                        <span class="fas fa-play-circle"></span>
+                        <span class="fas fa-plus-circle"></span>
+                    </div>
+                    <h5 class="carousel-item__details--title">Projeto 6</h5>
+                    <h6 class="carousel-item__details--subtitle">Data e Duração</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+      
+    <!-- Modal 1 -->
+    <dialog id="modalDialog1">
+        <div class="modal">
+            <img class="carousel-item__img_modal active" src="img/Card1/Screenshot_1.png" alt="Imagem 1">
+            <img class="carousel-item__img_modal" src="img/Card1/Screenshot_2.png" alt="Imagem 2">
+            <img class="carousel-item__img_modal" src="img/Card1/Screenshot_3.png" alt="Imagem 3">
+            <div class="principle_tools">
+                <h3 class="tools">Ferramentas Utilizadas:</h3>
+                <ul class="tools-list">
+                    <li>Python</li>
+                    <li>Jupyter Lab</li>
+                    <li>Terminal</li>
+                    <li>Streamlit</li>
+                    <li>Streamlit Cloud</li>
+                    <li>Github</li>
+                </ul>
+            </div>
+            <p class="description">Neste projeto, utilizei habilidades avançadas de Programação em Python e manipulação de dados para desenvolver um painel gerencial inovador para uma empresa marketplace de delivery de comida. Integrando pensamento estratégico e lógica de negócios, juntamente com ferramentas de desenvolvimento web como Streamlit e Github, o resultado final foi um painel interativo com as principais métricas de negócio e vários Insights.<br> Hospedado em um ambiente Cloud, o painel é acessível através de um link web em qualquer dispositivo conectado à internet.</p>
+            <button class="close_button">X</button>
+            <a href="https://projeto-fome-zero.streamlit.app" target="_blank">
+                <button class="link_button">Projeto Completo</button>
+            </a>
+            <a href="https://github.com/ViniciusGrossi/Projeto-Fome-Zero" target="_blank"></a>
+                <button class="link_button">Projeto Github</button>
+            </a>
+            <button class="prev">Prev</button>
+            <button class="next">Next</button>
+        </div>
+    </dialog>
+
+    <!-- Modal 2 -->
+    <dialog id="modalDialog2">
+        <div class="modal">
+            <img class="carousel-item__img_modal active" src="img/Card2/Screenshot_1.png" alt="Imagem 1">
+            <img class="carousel-item__img_modal" src="img/Card2/Screenshot_2.png" alt="Imagem 2">
+            <img class="carousel-item__img_modal" src="img/Card2/Screenshot_3.png" alt="Imagem 3">
+            <div class="principle_tools">
+                <h3 class="tools">Ferramentas Utilizadas:</h3>
+                <ul class="tools-list">
+                    <li>Python</li>
+                    <li>Scrapy</li>
+                    <li>Terminal</li>
+                    <li>Streamlit</li>
+                    <li>Streamlit Cloud</li>
+                    <li>Git</li>
+                    <li>Github</li>
+                    <li>SQL</li>
+                </ul>
+            </div>
+            <p class="description">Este projeto visa analisar o mercado de tênis masculinos no site do Mercado Livre. Utilizando técnicas de web scraping e análise de dados, o objetivo é fornecer insights valiosos sobre preços, marcas, avaliações e tendências do mercado para ajudar vendedores e consumidores a tomar decisões informadas.<br> Hospedado em um ambiente Cloud, o painel é acessível através de um link web em qualquer dispositivo conectado à internet.</p>
+            <button class="close_button">X</button>
+            <a href="https://mercadolivre-tracked-prices.streamlit.app" target="_blank">
+                <button class="link_button">Projeto Completo</button>
+            </a>
+            <a href="https://github.com/ViniciusGrossi/Monitoramento_Precos" target="_blank">
+                <button class="link_button">Projeto Github</button>
+            </a>
+            <button class="prev">Prev</button>
+            <button class="next">Next</button>
+        </div>
+    </dialog>
+
+    <!-- Modal 3 -->
+    <dialog id="modalDialog3">
+        <div class="modal">
+            <img class="carousel-item__img_modal active" src="img/Screenshot_7.png" alt="Imagem 1">
+            <img class="carousel-item__img_modal" src="img/Screenshot_8.png" alt="Imagem 2">
+            <img class="carousel-item__img_modal" src="img/Screenshot_9.png" alt="Imagem 3">
+            <div class="principle_tools">
+                <h3 class="tools">Ferramentas Utilizadas:</h3>
+                <ul class="tools-list">
+                    <li>Ferramenta1</li>
+                    <li>Ferramenta2</li>
+                    <li>Ferramenta3</li>
+                </ul>
+            </div>
+            <p class="description">Descrição do Projeto 3</p>
+            <button class="close_button">X</button>
+            <a href="https://projeto3-link.com" target="_blank">
+                <button class="link_button">Projeto Completo</button>
+            </a>
+            <a href="https://github.com/link-projeto3" target="_blank">
+                <button class="link_button">Projeto Github</button>
+            </a>
+            <button class="prev">Prev</button>
+            <button class="next">Next</button>
+        </div>
+    </dialog>
+
+    <!-- Modal 4 -->
+    <dialog id="modalDialog4">
+        <div class="modal">
+            <img class="carousel-item__img_modal active" src="img/Screenshot_10.png" alt="Imagem 1">
+            <img class="carousel-item__img_modal" src="img/Screenshot_11.png" alt="Imagem 2">
+            <img class="carousel-item__img_modal" src="img/Screenshot_12.png" alt="Imagem 3">
+            <div class="principle_tools">
+                <h3 class="tools">Ferramentas Utilizadas:</h3>
+                <ul class="tools-list">
+                    <li>Ferramenta1</li>
+                    <li>Ferramenta2</li>
+                    <li>Ferramenta3</li>
+                </ul>
+            </div>
+            <p class="description">Descrição do Projeto 4</p>
+            <button class="close_button">X</button>
+            <a href="https://projeto4-link.com" target="_blank">
+                <button class="link_button">Projeto Completo</button>
+            </a>
+            <a href="https://github.com/link-projeto4" target="_blank">
+                <button class="link_button">Projeto Github</button>
+            </a>
+            <button class="prev">Prev</button>
+            <button class="next">Next</button>
+        </div>
+    </dialog>
+
+    <!-- Modal 5 -->
+    <dialog id="modalDialog5">
+        <div class="modal">
+            <img class="carousel-item__img_modal active" src="img/Screenshot_13.png" alt="Imagem 1">
+            <img class="carousel-item__img_modal" src="img/Screenshot_14.png" alt="Imagem 2">
+            <img class="carousel-item__img_modal" src="img/Screenshot_15.png" alt="Imagem 3">
+            <div class="principle_tools">
+                <h3 class="tools">Ferramentas Utilizadas:</h3>
+                <ul class="tools-list">
+                    <li>Ferramenta1</li>
+                    <li>Ferramenta2</li>
+                    <li>Ferramenta3</li>
+                </ul>
+            </div>
+            <p class="description">Descrição do Projeto 5</p>
+            <button class="close_button">X</button>
+            <a href="https://projeto5-link.com" target="_blank">
+                <button class="link_button">Projeto Completo</button>
+            </a>
+            <a href="https://github.com/link-projeto5" target="_blank">
+                <button class="link_button">Projeto Github</button>
+            </a>
+            <button class="prev">Prev</button>
+            <button class="next">Next</button>
+        </div>
+    </dialog>
+
+    <!-- Modal 6 -->
+    <dialog id="modalDialog6">
+        <div class="modal">
+            <img class="carousel-item__img_modal active" src="img/Screenshot_16.png" alt="Imagem 1">
+            <img class="carousel-item__img_modal" src="img/Screenshot_17.png" alt="Imagem 2">
+            <img class="carousel-item__img_modal" src="img/Screenshot_18.png" alt="Imagem 3">
+            <div class="principle_tools">
+                <h3 class="tools">Ferramentas Utilizadas:</h3>
+                <ul class="tools-list">
+                    <li>Ferramenta1</li>
+                    <li>Ferramenta2</li>
+                    <li>Ferramenta3</li>
+                </ul>
+            </div>
+            <p class="description">Descrição do Projeto 6</p>
+            <button class="close_button">X</button>
+            <a href="https://projeto6-link.com" target="_blank">
+                <button class="link_button">Projeto Completo</button>
+            </a>
+            <a href="https://github.com/link-projeto6" target="_blank">
+                <button class="link_button">Projeto Github</button>
+            </a>
+            <button class="prev">Prev</button>
+            <button class="next">Next</button>
+        </div>
+    </dialog>
+
+    <script src="script.js"></script>     
+</body>
+</html>
