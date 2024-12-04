@@ -767,46 +767,88 @@ dialog{
     }
 }
 
-@media screen and (max-width: 1366px) {
+/* Ajustes para telas menores como notebooks */
+@media screen and (min-width: 1024px) and (max-width: 1366px) {
+    /* Ajustando espaçamento geral */
     .container {
-        padding: 0 4.4rem;
+        padding: 0 3rem;
     }
-    .main h3 {
+    
+    /* Ajuste para o header */
+    header {
+        height: 80px;
+        background-color: var(--primary-dark);
+    }
+
+    /* Padronizando cores e espaçamentos */
+    body {
+        background-color: var(--primary-dark);
         color: #ffffff;
-        margin-top: 1rem;
+    }
+
+    h1, h2, h3, p {
+        color: #ffffff;
+    }
+
+    /* Ajuste nas colunas principais */
+    .main {
+        grid-template-columns: repeat(2, minmax(250px, 1fr));
+        gap: 2rem;
+    }
+
+    /* Ajuste nos botões */
+    .btn {
+        width: 6em;
+        height: 2.5em;
+    }
+    .btn__text {
+        font-size: 1rem;
+    }
+
+    /* Modais */
+    .modal {
+        width: 70%;
+        height: 70%;
+        padding: 20px;
+    }
+    .close_button {
+        top: 5px;
+        right: 5px;
+    }
+
+    /* Carrossel */
+    .carousel-item {
+        width: 180px;
+        height: 220px;
     }
     .carousel-item__img_modal.active {
-        height: 70%;
-      }
-      .principle_tools{
-        width: 100%;
-      }
-      .tools{
-        color: #fff;
-        text-align:left;
-      }
-      .principle_tools ul{
-        padding: 0;
-        margin: 0;
-        list-style-type: none;
-        display: block;
-      }
-      .principle_tools ul li{
-        font-size: 18px;
-        margin-top: 5px;
-        margin-bottom: 5px;
-        color: #fff;
-      }
-    .description{
-        order: 1;
-        color: #ffffff;
-        font-size: 16.5px;
-        margin-top: 3vh;
-        float: inline-end;
-      }
-      
+        width: 80%;
+        height: auto;
+    }
 
+    /* Categorias e habilidades */
+    .category-wrapper {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    .category {
+        height: 180px;
+        padding: 15px;
+    }
+    .skills li {
+        font-size: 14px;
+    }
+
+    /* Ícones e imagens */
+    .icon-block {
+        width: 60px;
+        height: 60px;
+    }
+    .images {
+        width: 250px;
+    }
 }
+
 @media screen and (max-width: 990px) {
     .main {
         grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
