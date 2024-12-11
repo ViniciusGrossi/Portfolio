@@ -807,9 +807,13 @@ dialog{
 
     /* Modais */
     .modal {
-        width: 70%;
-        height: 70%;
+       width: 60%; /* Reduzindo a largura */
+        height: auto; /* Ajuste dinâmico para altura */
         padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centraliza conteúdo */
+        justify-content: center;
     }
     .close_button {
         top: 5px;
@@ -822,8 +826,9 @@ dialog{
         height: 220px;
     }
     .carousel-item__img_modal.active {
-        width: 80%;
+        width: 50%; /* Ocupa metade do modal */
         height: auto;
+        margin: 0 auto; /* Centraliza horizontalmente */
     }
 
     /* Categorias e habilidades */
@@ -846,6 +851,24 @@ dialog{
     }
     .images {
         width: 250px;
+    }
+    .description {
+        text-align: center; /* Centraliza o texto */
+        font-size: 1rem; /* Ajusta o tamanho para notebooks */
+        margin: 1rem 0;
+    }
+    .link_button {
+        margin-top: 15px;
+        font-size: 1rem;
+        padding: 10px 15px;
+    }
+
+    .close_button {
+        top: 10px;
+        right: 15px;
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
     }
 }
 
