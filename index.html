@@ -1,466 +1,1532 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="style.css">
+    <link href='https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&display=swap' rel='stylesheet'>
     <title>Portfolio Vinicius Grossi</title>
-    
-    
-</head>
+    <style>
+        :root {
+            --primary-color: #f9532d;
+            --primary-dark: #1F252E;
+            --secondary-dark: #2a3138;
+            --accent-color: #ff6b47;
+            --white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+            color: var(--white);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+
+        .container {
+            padding: 0 8.4rem;
+            position: relative;
+        }
+
+        /* Header with Glassmorphism */
+        header {
+            background: rgba(31, 37, 46, 0.8);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideInLeft 1s ease;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            transition: width 0.3s ease;
+        }
+
+        .logo:hover::after {
+            width: 100%;
+        }
+
+        .logo a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+        }
+
+        nav a {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 50px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: slideInDown 0.3s ease forwards;
+            animation-delay: calc(0.15s * var(--nav-delay));
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        nav a:hover::before {
+            left: 100%;
+        }
+
+        nav a.active, nav a:hover {
+            color: var(--white);
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(249, 83, 45, 0.3);
+        }
+
+        #menu-toggle {
+            display: none;
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* Main Section with Enhanced Styling */
+        .main {
+            padding: 8rem 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+            min-height: 80vh;
+        }
+
+        .detail {
+            animation: fadeInUp 1s ease;
+        }
+
+        .detail h3 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            animation: slideInDown 1s ease;
+            position: relative;
+            display: inline-block;
+        }
+
+        .detail h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        .typing-text {
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin: 1.5rem 0;
+            background: linear-gradient(45deg, var(--white), var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 300% 300%;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .detail p {
+            margin: 2rem 0;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            animation: slideInLeft 1s ease 0.5s both;
+        }
+
+        /* Enhanced Button */
+        .btn {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border: none;
+            border-radius: 50px;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(249, 83, 45, 0.3);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(249, 83, 45, 0.4);
+        }
+
+        /* Enhanced Profile Section */
+        .profile-section {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeInRight 1s ease;
+        }
+
+        .rotating-circle {
+            width: 450px;
+            height: 450px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            position: relative;
+            animation: rotate 20s linear infinite;
+            background: radial-gradient(circle at center, transparent 60%, rgba(249, 83, 45, 0.1) 100%);
+        }
+
+        .social-icon {
+            width: 70px;
+            height: 70px;
+            position: absolute;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
+        .social-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .social-icon:hover::before {
+            opacity: 1;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2) rotate(10deg);
+            box-shadow: 0 15px 35px rgba(249, 83, 45, 0.4);
+        }
+
+        .social-icon img {
+            width: 60%;
+            height: auto;
+            animation: rotate-reverse 20s linear infinite;
+            position: relative;
+            z-index: 1;
+            filter: brightness(1.2);
+        }
+
+        .social-icon:nth-child(1) { top: -35px; left: 50%; transform: translateX(-50%); }
+        .social-icon:nth-child(2) { top: 50%; right: -35px; transform: translateY(-50%); }
+        .social-icon:nth-child(3) { bottom: -35px; left: 50%; transform: translateX(-50%); }
+        .social-icon:nth-child(4) { top: 50%; left: -35px; transform: translateY(-50%); }
+
+        .profile-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 320px;
+            border-radius: 50%;
+            padding: 10px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(249, 83, 45, 0.4); }
+            50% { box-shadow: 0 0 0 20px rgba(249, 83, 45, 0); }
+        }
+
+        .profile-image img {
+            width: 100%;
+            border-radius: 50%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Enhanced Skills Section */
+        .skills-section {
+            margin: 6rem 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .skills-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            background: linear-gradient(45deg, var(--white), var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            padding: 2.5rem;
+            border-radius: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            min-height: 220px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(249, 83, 45, 0.1), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .skill-category:hover::before {
+            left: 100%;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(249, 83, 45, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .skill-icon {
+            width: 90px;
+            height: 90px;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .diamond {
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--glass-border);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            transform: rotate(45deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .diamond::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .diamond:hover::before {
+            opacity: 1;
+        }
+
+        .diamond:hover {
+            transform: rotate(45deg) scale(1.1);
+            border-color: var(--primary-color);
+        }
+
+        .diamond img {
+            width: 50%;
+            height: auto;
+            transform: rotate(-45deg);
+            position: relative;
+            z-index: 1;
+            filter: brightness(1.2);
+        }
+
+        .skill-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+            background: linear-gradient(45deg, var(--white), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .skill-content ul {
+            list-style: none;
+        }
+
+        .skill-content li {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+            position: relative;
+            padding-left: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-content li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-content li:hover {
+            color: var(--white);
+            transform: translateX(5px);
+        }
+
+        .skill-content li:hover::before {
+            transform: translateX(3px);
+        }
+
+        /* Enhanced Projects Section */
+        .projects-section {
+            margin: 6rem 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .projects-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            padding: 2rem 0;
+            border-radius: 20px;
+        }
+
+        .carousel-container {
+            display: flex;
+            gap: 2rem;
+            transition: transform 0.5s ease;
+            padding: 1rem;
+        }
+
+        .project-card {
+            min-width: 280px;
+            height: 320px;
+            border-radius: 25px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .project-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(249, 83, 45, 0.3);
+            border-color: var(--primary-color);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 70%;
+            object-fit: cover;
+            border-radius: 25px 25px 0 0;
+        }
+
+        .project-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 50%, transparent 100%);
+            padding: 2rem;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .project-card:hover .project-overlay {
+            transform: translateY(0);
+        }
+
+        .project-title {
+            color: var(--white);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-year {
+            color: var(--primary-color);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        /* Carousel Navigation */
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        /* Enhanced Modal */
+        dialog {
+            border: none;
+            border-radius: 25px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            width: 90vw;
+            max-width: 1200px;
+            height: 85vh;
+            padding: 0;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+
+        dialog::backdrop {
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            height: 100%;
+            border-radius: 25px;
+            padding: 3rem;
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            overflow-y: auto;
+        }
+
+        .modal-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-image:hover {
+            transform: scale(1.02);
+        }
+
+        .modal-info h3 {
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            background: linear-gradient(45deg, var(--white), var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .modal-info p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .tools-list {
+            list-style: none;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .tools-list li {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .tools-list li:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        .modal-btn {
+            padding: 1rem 2rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+
+        .modal-btn:hover {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(249, 83, 45, 0.3);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            background: var(--primary-color);
+            color: var(--white);
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        /* Enhanced Animations */
+        @keyframes slideInLeft {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes rotate-reverse {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1366px) {
+            .container { padding: 0 3rem; }
+            .modal-content { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 1.6rem; }
+            .main { 
+                grid-template-columns: 1fr; 
+                gap: 4rem; 
+                padding: 4rem 0;
+            }
+            .typing-text { font-size: 2.5rem; }
+            .rotating-circle { width: 300px; height: 300px; }
+            .profile-image { width: 220px; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .skill-category { 
+                flex-direction: column; 
+                text-align: center; 
+                align-items: center;
+            }
+            .section-title { font-size: 2.5rem; }
+            
+            .menu-icon { display: block; }
+            nav ul {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--glass-bg);
+                backdrop-filter: blur(20px);
+                border: 1px solid var(--glass-border);
+                flex-direction: column;
+                padding: 2rem;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                border-radius: 0 0 20px 20px;
+            }
+            
+            #menu-toggle:checked + .menu-icon + ul {
+                transform: translateX(0);
+            }
+
+            .modal-content {
+                padding: 1.5rem;
+                gap: 1.5rem;
+                grid-template-columns: 1fr;
+            }
+            
+            dialog {
+                width: 95vw;
+                height: 90vh;
+                max-height: none;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(249, 83, 45, 0.3);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Animated Background Particles -->
+    <div class="particles" id="particles"></div>
+
     <header class="container">
-        <div class="page-header">    
-            <input type="checkbox" id="click">
-            <label for="click" class="mainicon">
-                <div class="menu">
+        <div class="page-header">
+            <div class="logo">
+                <a href="#">Portfolio</a>
+            </div>
+            <nav>
+                <input type="checkbox" id="menu-toggle">
+                <label for="menu-toggle" class="menu-icon">
                     <i class='bx bx-menu'></i>
-                </div>
-            </label>
-            <ul>
-                <li><a href="#" class="active" style="--navAni:1">Home</a></li>
-                <li><a href="#category-wrapper"  style="--navAni:3">Habilidades</a></li>
-                <li><a href="#carousel" style="--navAni:3">Projetos</a></li>
-                <!--<li><a href="#" style="--navAni:4">Portfolio</a></li>
-                <li><a href="#" style="--navAni:5">Contact</a></li>-->
-            </ul>
+                </label>
+                <ul>
+                    <li><a href="#" class="active" style="--nav-delay:1">Home</a></li>
+                    <li><a href="#skills" style="--nav-delay:2">Habilidades</a></li>
+                    <li><a href="#projects" style="--nav-delay:3">Projetos</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
     <section class="container">
         <div class="main">
-            <div class="rounding-sec">
-                <div class="big-circle">
-                    <div class="icon-block">
-                        <a href="https://github.com/ViniciusGrossi" target="_blank">
-                            <img src="img/Icons/github-icon.png"
-                            alt="" /></a>
-                    </div>
-                    <div class="icon-block">
-                        <a href="mailto:viniciussggrossi@gmail.com" target="_blank">
-                            <img src="img/Icons/gmail-icon.png"
-                            alt="" /></a>
-                    </div>
-                    <div class="icon-block">
-                        <a href="https://www.linkedin.com/in/viniciusgrossi/" target="_blank">
-                            <img src="img/Icons/linkedin-icon.png"
-                            alt="" /></a> 
-                    </div>
-                    <div class="icon-block">
-                        <a href="" target="_blank">
-                            <img src="img/Icons/medium-icon.png"
-                            alt="" /></a> 
-                    </div>
-                </div>
-                <div class="images">
-                    <img src="" alt="" class="img-w">
-                </div>
-            </div>
             <div class="detail">
                 <h3>Olá, eu sou</h3>
-                <h1><span style="color:#f9532d;">Vinicius</span> Grossi</h1>
+                <h1 class="typing-text">
+                    <span style="color:#f9532d;">Vinicius</span> Grossi
+                </h1>
                 <p>Profissional apaixonado por análise e ciência de dados, especializado em projetos inovadores para gerar insights acionáveis. Especialista em transformar dados complexos em soluções práticas e impactantes, aproveitando a tecnologia, a inovação e explorando o machine learning.</p>
-                <a href="https://drive.google.com/uc?export=1IPU2M5SFaG3ZxyUY9VlcTrQRVaKOLpS0" class="btn-link">
-                  <button class="btn" type="button">
-                      <span class="btn__text">Currículo</span>
-                      <svg class="btn__progress" viewBox="0 0 48 48" width="48px" height="48px">
-                          <circle class="btn__progress-track" r="20" cx="24" cy="24" fill="none" stroke="#c7cad1" stroke-width="8" />
-                          <circle class="btn__progress-fill" r="20" cx="24" cy="24" fill="none" stroke="#000000" stroke-width="8" transform="rotate(-90,24,24)" stroke-dasharray="125.66 125.66" stroke-dashoffset="125.66" />
-                          <polyline class="btn__progress-check" points="12,24 20,32 36,16" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="34 34" stroke-dashoffset="34" />
-                      </svg>
-                  </button>
+                <a href="https://drive.google.com/uc?export=download&id=1XZPpvW7bFD_Sh8CzDEQN7uMZ6WBVuP3v" download>
+                    <button class="btn">
+                        <i class='bx bx-download'></i>
+                        Baixar Currículo
+                    </button>
                 </a>
             </div>
+            
+            <div class="profile-section">
+                <div class="rotating-circle">
+                    <a href="https://github.com/ViniciusGrossi" target="_blank" class="social-icon" data-tooltip="GitHub">
+                        <img src="C:\Users\vinic\Documents\Portfolio\Novo\img\Icons\github-icon.png" alt="GitHub">
+                    </a>
+                    <a href="mailto:viniciussggrossi@gmail.com" class="social-icon" data-tooltip="Gmail">
+                        <img src="C:\Users\vinic\Documents\Portfolio\Novo\img\Icons\gmail-icon.png" alt="Gmail">
+                    </a>
+                    <a href="https://www.linkedin.com/in/viniciusgrossi/" target="_blank" class="social-icon" data-tooltip="LinkedIn">
+                        <img src="C:\Users\vinic\Documents\Portfolio\Novo\img\Icons\linkedin-icon.png" alt="LinkedIn">
+                    </a>
+                    <a href="#" target="_blank" class="social-icon" data-tooltip="Medium">
+                        <img src="C:\Users\vinic\Documents\Portfolio\Novo\img\Icons\medium-icon.png" alt="Medium">
+                    </a>
+                </div>
+                <div class="profile-image">
+                    <img src="" alt="Profile">
+                </div>
+            </div>
         </div>
-        <h2 class="categories__skills">Habilidades</h2>
-        <div class="category-wrapper" id="category-wrapper">
-          <div class="left-column">
-              <div class="category">
-                  <div class="icon-container">
-                      <div class="diamond">
-                        
-                          <img src="img/Skills/python.png" alt="" class="icon">
-                      </div>
-                  </div>
-                  <div class="category-content">
-                      <h2>Linguagens de Programação</h2>
-                      <ul class="skills">
-                          <li>Python com foco em análise de dados (Pandas e Numpy)</li>
-                          <li>Processos de automação</li>
-                          <li>Reconhecimento de Imagens com OCR</li>
-                          <li>Conceitos de ETL</li>
-                      </ul>
-                  </div>
-              </div>
-              <div class="category">
-                  <div class="icon-container">
-                      <div class="diamond">
-                          <img src="img/Skills/estatistica.png" alt="" class="icon">
-                      </div>
-                  </div>
-                  <div class="category-content">
-                      <h2>Estatística</h2>
-                      <ul class="skills">
-                          <li>Estatística descritiva</li>
-                          <li>Probabilidade</li>
-                      </ul>
-                  </div>
-              </div>
-              <div class="category">
-                  <div class="icon-container">
-                      <div class="diamond">
-                          <img src="img/Skills/banco-de-dados.png" alt="" class="icon">
-                      </div>
-                  </div>
-                  <div class="category-content">
-                      <h2>Banco de dados</h2>
-                      <ul class="skills">
-                          <li>SQL</li>
-                          <li>Banco de Dados SQLite</li>
-                          <li>PostgreSQL</li>
-                          <li>Modelagem de dados</li>
-                          <li>Google BigQuery</li>
-                      </ul>
-                  </div>
-              </div>
-              <div class="category">
-                <div class="icon-container">
-                    <div class="diamond">
-                        <img src="img\Skills\ai.png" alt="" class="icon">
-                    </div>
-                </div>
-                <div class="category-content">
-                    <h2>Inteligencia Artificial</h2>
-                    <ul class="skills">
-                        <li>Agentes Virtuais</li>
-                        <li>OpenCV</li>
-                        <li>Groq</li>
-                        <li>ChatGPT</li>
-                    </ul>
-                </div>
-            </div>
-          </div>
-          <div class="right-column">
-              <div class="category">
-                  <div class="icon-container">
-                      <div class="diamond">
-                          <img src="img/Skills/visualizacao-de-dados.png" alt="" class="icon">
-                      </div>
-                  </div>
-                  <div class="category-content">
-                      <h2>Visualização de Dados</h2>
-                      <ul class="skills">
-                          <li>Matplotlib, Seaborn, Plotly</li>
-                          <li>Streamlit</li>
-                          <li>Power BI</li>	
-                      </ul>
-                  </div>
-              </div>
-              <div class="category">
-                  <div class="icon-container">
-                      <div class="diamond">
-                          <img src="img/Skills/machine-learning.png" alt="" class="icon">
-                      </div>
-                  </div>
-                  <div class="category-content">
-                      <h2>Machine Learning</h2>
-                      <ul class="skills">
-                          <li>Regressão Linear</li>
-                          <li>Decision Tree</li>
-                      </ul>
-                  </div>
-              </div>
-              <div class="category">
-                  <div class="icon-container">
-                      <div class="diamond">
-                          <img src="img/Skills/engenharia-de-software.png" alt="" class="icon">
-                      </div>
-                  </div>
-                  <div class="category-content">
-                      <h2>Engenharia de Software</h2>
-                      <ul class="skills">
-                          <li>Github</li>
-                          <li>Streamlit Cloud</li>
-                          <li>Git</li>
-                      </ul>
-                  </div>
-              </div>
-              <div class="category">
-                <div class="icon-container">
-                    <div class="diamond">
-                        <img src="img/Skills/engenharia-de-dados.png" alt="" class="icon">
-                    </div>
-                </div>
-                <div class="category-content">
-                    <h2>Engenharia de Dados</h2>
-                    <ul class="skills">
-                        <li>Dbt-core</li>
-                        <li>Pydantic (validação de dados)</li>
-                    </ul>
-                </div>
-            </div>
-          </div>
-      </div>
-      
-      <section class="carousel" id="carousel">
-        <h2 class="categories__title">Projetos</h2>
-        <div class="carousel__container">
 
-            <!-- Card 1 -->
-            <div class="carousel-item" id="card-projeto1">
-                <img class="carousel-item__img" src="img/Card1/Zero_Hunger.png" alt="Projeto 1">
-                <div class="carousel-item__details">
-                    <div class="controls">
-                        <span class="fas fa-play-circle"></span>
-                        <span class="fas fa-plus-circle"></span>
+        <div class="skills-section" id="skills">
+            <h2 class="section-title">Habilidades</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <div class="skill-icon">
+                        <div class="diamond">
+                            <img src="C:\Users\vinic\Documents\Portfolio\Novo\img\Skills\python.png" alt="Python">
+                        </div>
                     </div>
-                    <h5 class="carousel-item__details--title">Projeto Fome Zero</h5>
-                    <h6 class="carousel-item__details--subtitle">2024</h6>
+                    <div class="skill-content">
+                        <h3>Linguagens de Programação</h3>
+                        <ul>
+                            <li>Python com foco em análise de dados (Pandas e Numpy)</li>
+                            <li>Processos de automação</li>
+                            <li>Reconhecimento de Imagens com OCR</li>
+                            <li>Conceitos de ETL</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-icon">
+                        <div class="diamond">
+                            <img src="C:\Users\vinic\Documents\Portfolio\Novo\img\Skills\visualizacao-de-dados.png" alt="Visualização">
+                        </div>
+                    </div>
+                    <div class="skill-content">
+                        <h3>Visualização de Dados</h3>
+                        <ul>
+                            <li>Matplotlib, Seaborn, Plotly</li>
+                            <li>Streamlit</li>
+                            <li>Power BI</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-icon">
+                        <div class="diamond">
+                            <img src="C:\Users\vinic\Documents\Portfolio\Novo\img\Skills\banco-de-dados.png" alt="Banco de Dados">
+                        </div>
+                    </div>
+                    <div class="skill-content">
+                        <h3>Banco de dados</h3>
+                        <ul>
+                            <li>SQL</li>
+                            <li>Banco de Dados SQLite</li>
+                            <li>PostgreSQL</li>
+                            <li>Modelagem de dados</li>
+                            <li>Google BigQuery</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-icon">
+                        <div class="diamond">
+                            <img src="C:\Users\vinic\Documents\Portfolio\Novo\img\Skills\machine-learning.png" alt="Machine Learning">
+                        </div>
+                    </div>
+                    <div class="skill-content">
+                        <h3>Machine Learning</h3>
+                        <ul>
+                            <li>Regressão Linear</li>
+                            <li>KNN</li>
+                            <li>Decision Tree</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-icon">
+                        <div class="diamond">
+                            <img src="C:\Users\vinic\Documents\Portfolio\Novo\img\Skills\ai.png" alt="IA">
+                        </div>
+                    </div>
+                    <div class="skill-content">
+                        <h3>Inteligência Artificial</h3>
+                        <ul>
+                            <li>Agentes Virtuais</li>
+                            <li>OpenCV</li>
+                            <li>Groq</li>
+                            <li>ChatGPT</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-icon">
+                        <div class="diamond">
+                            <img src="C:\Users\vinic\Documents\Portfolio\Novo\img\Skills\engenharia-de-dados.png" alt="Engenharia">
+                        </div>
+                    </div>
+                    <div class="skill-content">
+                        <h3>Engenharia de Dados</h3>
+                        <ul>
+                            <li>Dbt-core</li>
+                            <li>Pydantic (validação de dados)</li>
+                            <li>Github</li>
+                            <li>Git</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Card 2 -->
-            <div class="carousel-item" id="card-projeto2">
-                <img class="carousel-item__img" src="img/Card2/mercado_livre.png" alt="Projeto 2">
-                <div class="carousel-item__details">
-                    <div class="controls">
-                        <span class="fas fa-play-circle"></span>
-                        <span class="fas fa-plus-circle"></span>
+        <div class="projects-section" id="projects">
+            <h2 class="section-title">Projetos</h2>
+            <div class="carousel">
+                <div class="carousel-container" id="carousel">
+                    <div class="project-card" data-modal="modal1">
+                        <img src="img/Card1/Zero_Hunger.png" alt="Projeto Fome Zero">
+                        <div class="project-overlay">
+                            <div class="project-title">Projeto Fome Zero</div>
+                            <div class="project-year">2024</div>
+                        </div>
                     </div>
-                    <h5 class="carousel-item__details--title">ETL Mercado Livre</h5>
-                    <h6 class="carousel-item__details--subtitle">2024</h6>
+
+                    <div class="project-card" data-modal="modal2">
+                        <img src="img/Card2/mercado_livre.png" alt="ETL Mercado Livre">
+                        <div class="project-overlay">
+                            <div class="project-title">ETL Mercado Livre</div>
+                            <div class="project-year">2024</div>
+                        </div>
+                    </div>
+
+                    <div class="project-card" data-modal="modal3">
+                        <img src="img/Card3/Almoxarifado.jpg" alt="Consulta Almox">
+                        <div class="project-overlay">
+                            <div class="project-title">Consulta Almox</div>
+                            <div class="project-year">2024</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="carousel-item" id="card-projeto3">
-                <img class="carousel-item__img" src="img\Card3\Almoxarifado.jpg" alt="Projeto 3">
-                <div class="carousel-item__details">
-                    <div class="controls">
-                        <span class="fas fa-play-circle"></span>
-                        <span class="fas fa-plus-circle"></span>
-                    </div>
-                    <h5 class="carousel-item__details--title">Consulta Almox</h5>
-                    <h6 class="carousel-item__details--subtitle">2024</h6>
-                </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="carousel-item" id="card-projeto4">
-                <img class="carousel-item__img" src="https://images.pexels.com/photos/417344/pexels-photo-417344.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="Projeto 4">
-                <div class="carousel-item__details">
-                    <div class="controls">
-                        <span class="fas fa-play-circle"></span>
-                        <span class="fas fa-plus-circle"></span>
-                    </div>
-                    <h5 class="carousel-item__details--title">Projeto 4</h5>
-                    <h6 class="carousel-item__details--subtitle">Data e Duração</h6>
-                </div>
-            </div>
-
-            <!-- Card 5 -->
-            <div class="carousel-item" id="card-projeto5">
-                <img class="carousel-item__img" src="https://images.pexels.com/photos/6945/sunset-summer-golden-hour-paul-filitchkin.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Projeto 5">
-                <div class="carousel-item__details">
-                    <div class="controls">
-                        <span class="fas fa-play-circle"></span>
-                        <span class="fas fa-plus-circle"></span>
-                    </div>
-                    <h5 class="carousel-item__details--title">Projeto 5</h5>
-                    <h6 class="carousel-item__details--subtitle">Data e Duração</h6>
-                </div>
-            </div>
-
-            <!-- Card 6 -->
-            <div class="carousel-item" id="card-projeto6">
-                <img class="carousel-item__img" src="https://images.pexels.com/photos/6945/sunset-summer-golden-hour-paul-filitchkin.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Projeto 6">
-                <div class="carousel-item__details">
-                    <div class="controls">
-                        <span class="fas fa-play-circle"></span>
-                        <span class="fas fa-plus-circle"></span>
-                    </div>
-                    <h5 class="carousel-item__details--title">Projeto 6</h5>
-                    <h6 class="carousel-item__details--subtitle">Data e Duração</h6>
+                <div class="carousel-nav">
+                    <button class="nav-btn" id="prevBtn"><i class='bx bx-chevron-left'></i></button>
+                    <button class="nav-btn" id="nextBtn"><i class='bx bx-chevron-right'></i></button>
                 </div>
             </div>
         </div>
     </section>
-      
-    <!-- Modal 1 -->
-    <dialog id="modalDialog1">
-        <div class="modal">
-            <img class="carousel-item__img_modal active" src="img/Card1/Screenshot_1.png" alt="Imagem 1">
-            <img class="carousel-item__img_modal" src="img/Card1/Screenshot_2.png" alt="Imagem 2">
-            <img class="carousel-item__img_modal" src="img/Card1/Screenshot_3.png" alt="Imagem 3">
-            <div class="principle_tools">
-                <h3 class="tools">Ferramentas Utilizadas:</h3>
+
+    <!-- Enhanced Modals -->
+    <dialog id="modal1">
+        <div class="modal-content">
+            <div>
+                <img src="img/Card1/Screenshot_1.png" alt="Projeto 1" class="modal-image">
+            </div>
+            <div class="modal-info">
+                <h3>🛠️ Ferramentas Utilizadas:</h3>
                 <ul class="tools-list">
                     <li>Python</li>
                     <li>Jupyter Lab</li>
-                    <li>Terminal</li>
                     <li>Streamlit</li>
                     <li>Streamlit Cloud</li>
                     <li>Github</li>
                 </ul>
+                <p>Neste projeto, utilizei habilidades avançadas de Programação em Python e manipulação de dados para desenvolver um painel gerencial inovador para uma empresa marketplace de delivery de comida. Integrando pensamento estratégico e lógica de negócios, o resultado final foi um painel interativo com as principais métricas de negócio e vários Insights.</p>
+                <div class="modal-buttons">
+                    <a href="https://projeto-fome-zero.streamlit.app" target="_blank" class="modal-btn">
+                        <i class='bx bx-link-external'></i>
+                        Projeto Completo
+                    </a>
+                    <a href="https://github.com/ViniciusGrossi/Projeto-Fome-Zero" target="_blank" class="modal-btn">
+                        <i class='bx bxl-github'></i>
+                        GitHub
+                    </a>
+                </div>
             </div>
-            <p class="description">Neste projeto, utilizei habilidades avançadas de Programação em Python e manipulação de dados para desenvolver um painel gerencial inovador para uma empresa marketplace de delivery de comida. Integrando pensamento estratégico e lógica de negócios, juntamente com ferramentas de desenvolvimento web como Streamlit e Github, o resultado final foi um painel interativo com as principais métricas de negócio e vários Insights.<br> Hospedado em um ambiente Cloud, o painel é acessível através de um link web em qualquer dispositivo conectado à internet.</p>
-            <button class="close_button">X</button>
-            <a href="https://projeto-fome-zero.streamlit.app" target="_blank">
-                <button class="link_button">Projeto Completo</button>
-            </a>
-            <a href="https://github.com/ViniciusGrossi/Projeto-Fome-Zero" target="_blank"></a>
-                <button class="link_button">Projeto Github</button>
-            </a>
-            <button class="prev">Prev</button>
-            <button class="next">Next</button>
+            <button class="close-btn">&times;</button>
         </div>
     </dialog>
 
-    <!-- Modal 2 -->
-    <dialog id="modalDialog2">
-        <div class="modal">
-            <img class="carousel-item__img_modal active" src="img/Card2/Screenshot_1.png" alt="Imagem 1">
-            <img class="carousel-item__img_modal" src="img/Card2/Screenshot_2.png" alt="Imagem 2">
-            <img class="carousel-item__img_modal" src="img/Card2/Screenshot_3.png" alt="Imagem 3">
-            <div class="principle_tools">
-                <h3 class="tools">Ferramentas Utilizadas:</h3>
+    <dialog id="modal2">
+        <div class="modal-content">
+            <div>
+                <img src="img/Card2/Screenshot_1.png" alt="Projeto 2" class="modal-image">
+            </div>
+            <div class="modal-info">
+                <h3>🛠️ Ferramentas Utilizadas:</h3>
                 <ul class="tools-list">
                     <li>Python</li>
                     <li>Scrapy</li>
                     <li>Streamlit</li>
-                    <li>Git</li>
-                    <li>Github</li>
                     <li>SQL</li>
+                    <li>Github</li>
                 </ul>
+                <p>Este projeto visa analisar o mercado de tênis masculinos no site do Mercado Livre. Utilizando técnicas de web scraping e análise de dados, o objetivo é fornecer insights valiosos sobre preços, marcas, avaliações e tendências do mercado para ajudar vendedores e consumidores a tomar decisões informadas.</p>
+                <div class="modal-buttons">
+                    <a href="https://mercadolivre-tracked-prices.streamlit.app" target="_blank" class="modal-btn">
+                        <i class='bx bx-link-external'></i>
+                        Projeto Completo
+                    </a>
+                    <a href="https://github.com/ViniciusGrossi/Monitoramento_Precos" target="_blank" class="modal-btn">
+                        <i class='bx bxl-github'></i>
+                        GitHub
+                    </a>
+                </div>
             </div>
-            <p class="description">Este projeto visa analisar o mercado de tênis masculinos no site do Mercado Livre. Utilizando técnicas de web scraping e análise de dados, o objetivo é fornecer insights valiosos sobre preços, marcas, avaliações e tendências do mercado para ajudar vendedores e consumidores a tomar decisões informadas.<br> Hospedado em um ambiente Cloud, o painel é acessível através de um link web em qualquer dispositivo conectado à internet.</p>
-            <button class="close_button">X</button>
-            <a href="https://mercadolivre-tracked-prices.streamlit.app" target="_blank">
-                <button class="link_button">Projeto Completo</button>
-            </a>
-            <a href="https://github.com/ViniciusGrossi/Monitoramento_Precos" target="_blank">
-                <button class="link_button">Projeto Github</button>
-            </a>
-            <button class="prev">Prev</button>
-            <button class="next">Next</button>
+            <button class="close-btn">&times;</button>
         </div>
     </dialog>
 
-    <!-- Modal 3 -->
-    <dialog id="modalDialog3">
-        <div class="modal">
-            <img class="carousel-item__img_modal active" src="img\Card3\Screenshot_1.png" alt="Imagem 1">
-            <img class="carousel-item__img_modal" src="img/Screenshot_8.png" alt="Imagem 2">
-            <img class="carousel-item__img_modal" src="img/Screenshot_9.png" alt="Imagem 3">
-            <div class="principle_tools">
-                <h3 class="tools">Ferramentas Utilizadas:</h3>
+    <dialog id="modal3">
+        <div class="modal-content">
+            <div>
+                <img src="img/Card3/Screenshot_1.png" alt="Projeto 3" class="modal-image">
+            </div>
+            <div class="modal-info">
+                <h3>🛠️ Ferramentas Utilizadas:</h3>
                 <ul class="tools-list">
                     <li>Python</li>
-                    <li>Excel</li>
-                    <li>Terminal</li>
                     <li>Streamlit</li>
-                    <li>Streamlit Cloud</li>
+                    <li>Excel</li>
                     <li>Github</li>
                 </ul>
+                <p>Desenvolvi um sistema em Python utilizando Streamlit para automatizar e otimizar a gestão de estoque de um almoxarifado integrado a um CRM. A solução permite a importação, limpeza e tratamento de dados de inventário, além de fornecer uma interface para identificação e registro de inconsistências.</p>
+                <div class="modal-buttons">
+                    <a href="https://consulta-almox.streamlit.app" target="_blank" class="modal-btn">
+                        <i class='bx bx-link-external'></i>
+                        Projeto Completo
+                    </a>
+                    <a href="https://github.com/ViniciusGrossi/ETL-Almox-EBF" target="_blank" class="modal-btn">
+                        <i class='bx bxl-github'></i>
+                        GitHub
+                    </a>
+                </div>
             </div>
-            <p class="description">Desenvolvi um sistema em Python utilizando Streamlit para automatizar e otimizar a gestão de estoque de um almoxarifado integrado a um CRM. A solução permite a importação, limpeza e tratamento de dados de inventário, além de fornecer uma interface para identificação e registro de inconsistências, como erros de quantidade ou endereço de itens. O sistema também inclui a funcionalidade de exportação de relatórios detalhados, tornando a análise de dados mais eficiente e confiável.</p>
-            <button class="close_button">X</button>
-            <a href="https://consulta-almox.streamlit.app" target="_blank">
-                <button class="link_button">Projeto Completo</button>
-            </a>
-            <a href="https://github.com/ViniciusGrossi/ETL-Almox-EBF" target="_blank">
-                <button class="link_button">Projeto Github</button>
-            </a>
-            <button class="prev">Prev</button>
-            <button class="next">Next</button>
+            <button class="close-btn">&times;</button>
         </div>
     </dialog>
 
-    <!-- Modal 4 -->
-    <dialog id="modalDialog4">
-        <div class="modal">
-            <img class="carousel-item__img_modal active" src="img/Screenshot_10.png" alt="Imagem 1">
-            <img class="carousel-item__img_modal" src="img/Screenshot_11.png" alt="Imagem 2">
-            <img class="carousel-item__img_modal" src="img/Screenshot_12.png" alt="Imagem 3">
-            <div class="principle_tools">
-                <h3 class="tools">Ferramentas Utilizadas:</h3>
-                <ul class="tools-list">
-                    <li>Ferramenta1</li>
-                    <li>Ferramenta2</li>
-                    <li>Ferramenta3</li>
-                </ul>
-            </div>
-            <p class="description">Descrição do Projeto 4</p>
-            <button class="close_button">X</button>
-            <a href="https://projeto4-link.com" target="_blank">
-                <button class="link_button">Projeto Completo</button>
-            </a>
-            <a href="https://github.com/link-projeto4" target="_blank">
-                <button class="link_button">Projeto Github</button>
-            </a>
-            <button class="prev">Prev</button>
-            <button class="next">Next</button>
-        </div>
-    </dialog>
+    <script>
+        // Loading Screen
+        window.addEventListener('load', () => {
+            const loading = document.getElementById('loading');
+            setTimeout(() => {
+                loading.classList.add('fade-out');
+                setTimeout(() => {
+                    loading.style.display = 'none';
+                }, 500);
+            }, 1500);
+        });
 
-    <!-- Modal 5 -->
-    <dialog id="modalDialog5">
-        <div class="modal">
-            <img class="carousel-item__img_modal active" src="img/Screenshot_13.png" alt="Imagem 1">
-            <img class="carousel-item__img_modal" src="img/Screenshot_14.png" alt="Imagem 2">
-            <img class="carousel-item__img_modal" src="img/Screenshot_15.png" alt="Imagem 3">
-            <div class="principle_tools">
-                <h3 class="tools">Ferramentas Utilizadas:</h3>
-                <ul class="tools-list">
-                    <li>Ferramenta1</li>
-                    <li>Ferramenta2</li>
-                    <li>Ferramenta3</li>
-                </ul>
-            </div>
-            <p class="description">Descrição do Projeto 5</p>
-            <button class="close_button">X</button>
-            <a href="https://projeto5-link.com" target="_blank">
-                <button class="link_button">Projeto Completo</button>
-            </a>
-            <a href="https://github.com/link-projeto5" target="_blank">
-                <button class="link_button">Projeto Github</button>
-            </a>
-            <button class="prev">Prev</button>
-            <button class="next">Next</button>
-        </div>
-    </dialog>
+        // Create Animated Particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
 
-    <!-- Modal 6 -->
-    <dialog id="modalDialog6">
-        <div class="modal">
-            <img class="carousel-item__img_modal active" src="img/Screenshot_16.png" alt="Imagem 1">
-            <img class="carousel-item__img_modal" src="img/Screenshot_17.png" alt="Imagem 2">
-            <img class="carousel-item__img_modal" src="img/Screenshot_18.png" alt="Imagem 3">
-            <div class="principle_tools">
-                <h3 class="tools">Ferramentas Utilizadas:</h3>
-                <ul class="tools-list">
-                    <li>Ferramenta1</li>
-                    <li>Ferramenta2</li>
-                    <li>Ferramenta3</li>
-                </ul>
-            </div>
-            <p class="description">Descrição do Projeto 6</p>
-            <button class="close_button">X</button>
-            <a href="https://projeto6-link.com" target="_blank">
-                <button class="link_button">Projeto Completo</button>
-            </a>
-            <a href="https://github.com/link-projeto6" target="_blank">
-                <button class="link_button">Projeto Github</button>
-            </a>
-            <button class="prev">Prev</button>
-            <button class="next">Next</button>
-        </div>
-    </dialog>
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
 
-    <script src="script.js"></script>     
+        // Intersection Observer for Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe sections for scroll animations
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            
+            const sections = document.querySelectorAll('.skills-section, .projects-section');
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        // Enhanced Typing Animation
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    if (text.charAt(i) === '<') {
+                        let tag = '';
+                        while (text.charAt(i) !== '>' && i < text.length) {
+                            tag += text.charAt(i);
+                            i++;
+                        }
+                        tag += text.charAt(i);
+                        element.innerHTML += tag;
+                        i++;
+                    } else {
+                        element.innerHTML += text.charAt(i);
+                        i++;
+                    }
+                    setTimeout(type, speed);
+                } else {
+                    // Add blinking cursor
+                    element.innerHTML += '<span class="cursor">|</span>';
+                    setTimeout(() => {
+                        const cursor = element.querySelector('.cursor');
+                        if (cursor) cursor.remove();
+                    }, 3000);
+                }
+            }
+            type();
+        }
+
+        // Start typing animation after loading
+        setTimeout(() => {
+            const typingElement = document.querySelector('.typing-text');
+            if (typingElement) {
+                const originalText = typingElement.innerHTML;
+                typeWriter(typingElement, originalText, 80);
+            }
+        }, 2000);
+
+        // Enhanced Carousel
+        let currentSlide = 0;
+        const carousel = document.getElementById('carousel');
+        const cards = document.querySelectorAll('.project-card');
+        const totalSlides = cards.length;
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        });
+
+        function updateCarousel() {
+            const translateX = -currentSlide * (280 + 32); // card width + gap
+            carousel.style.transform = `translateX(${translateX}px)`;
+        }
+
+        // Auto-slide carousel
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }, 5000);
+
+        // Enhanced Modal functionality
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const modalId = card.dataset.modal;
+                const modal = document.getElementById(modalId);
+                modal.showModal();
+                
+                // Add entrance animation
+                const modalContent = modal.querySelector('.modal-content');
+                modalContent.style.transform = 'scale(0.8) translateY(50px)';
+                modalContent.style.opacity = '0';
+                
+                setTimeout(() => {
+                    modalContent.style.transform = 'scale(1) translateY(0)';
+                    modalContent.style.opacity = '1';
+                    modalContent.style.transition = 'all 0.3s ease';
+                }, 50);
+            });
+        });
+
+        document.querySelectorAll('.close-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const modal = btn.closest('dialog');
+                const modalContent = modal.querySelector('.modal-content');
+                
+                modalContent.style.transform = 'scale(0.8) translateY(50px)';
+                modalContent.style.opacity = '0';
+                
+                setTimeout(() => {
+                    modal.close();
+                }, 300);
+            });
+        });
+
+        // Close modal when clicking outside
+        document.querySelectorAll('dialog').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    const modalContent = modal.querySelector('.modal-content');
+                    modalContent.style.transform = 'scale(0.8) translateY(50px)';
+                    modalContent.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        modal.close();
+                    }, 300);
+                }
+            });
+        });
+
+        // Enhanced smooth scrolling with offset for fixed header
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const target = document.querySelector(targetId);
+                
+                if (target) {
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight - 20;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+                
+                // Update active navigation
+                document.querySelectorAll('nav a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Close mobile menu if open
+                const menuToggle = document.getElementById('menu-toggle');
+                if (menuToggle.checked) {
+                    menuToggle.checked = false;
+                }
+            });
+        });
+
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.profile-section, .rotating-circle');
+            
+            parallaxElements.forEach(element => {
+                const speed = 0.5;
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+
+            // Update header background opacity
+            const header = document.querySelector('header');
+            const opacity = Math.min(scrolled / 100, 1);
+            header.style.background = `rgba(31, 37, 46, ${0.8 + opacity * 0.2})`;
+        });
+
+        // Add tooltips for social icons
+        document.querySelectorAll('.social-icon').forEach(icon => {
+            const tooltip = icon.getAttribute('data-tooltip');
+            if (tooltip) {
+                icon.addEventListener('mouseenter', (e) => {
+                    const tooltipEl = document.createElement('div');
+                    tooltipEl.className = 'tooltip';
+                    tooltipEl.textContent = tooltip;
+                    tooltipEl.style.cssText = `
+                        position: absolute;
+                        background: rgba(0,0,0,0.9);
+                        color: white;
+                        padding: 5px 10px;
+                        border-radius: 5px;
+                        font-size: 12px;
+                        white-space: nowrap;
+                        z-index: 1000;
+                        pointer-events: none;
+                        top: ${e.pageY - 35}px;
+                        left: ${e.pageX - 25}px;
+                        opacity: 0;
+                        transition: opacity 0.3s ease;
+                    `;
+                    document.body.appendChild(tooltipEl);
+                    
+                    setTimeout(() => {
+                        tooltipEl.style.opacity = '1';
+                    }, 10);
+                });
+                
+                icon.addEventListener('mouseleave', () => {
+                    const tooltip = document.querySelector('.tooltip');
+                    if (tooltip) {
+                        tooltip.style.opacity = '0';
+                        setTimeout(() => {
+                            tooltip.remove();
+                        }, 300);
+                    }
+                });
+            }
+        });
+
+        // Add cursor trail effect
+        const cursor = document.createElement('div');
+        cursor.className = 'cursor-trail';
+        cursor.style.cssText = `
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, rgba(249, 83, 45, 0.6), transparent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+        `;
+        document.body.appendChild(cursor);
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
+        });
+
+        // Hide cursor trail when mouse leaves window
+        document.addEventListener('mouseleave', () => {
+            cursor.style.opacity = '0';
+        });
+
+        document.addEventListener('mouseenter', () => {
+            cursor.style.opacity = '1';
+        });
+
+        // Add CSS for cursor animation
+        const style = document.createElement('style');
+        style.textContent = `
+            .cursor {
+                animation: blink 1s infinite;
+            }
+            
+            @keyframes blink {
+                0%, 50% { opacity: 1; }
+                51%, 100% { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>
