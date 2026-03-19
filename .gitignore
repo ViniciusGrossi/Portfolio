@@ -1,0 +1,7 @@
+.agent/
+.gemini/
+Referencias/design-system1.html
+Referencias/design-system2.html
+node_modules/
+.DS_Store
+*.log

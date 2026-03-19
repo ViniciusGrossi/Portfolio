@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Vinicius Grossi | Cientista de Dados & IA</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <style>
+        @keyframes fadeSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+                filter: blur(8px)
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0)
+            }
+        }
+
+        @keyframes beamDrop {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0
+            }
+
+            10% {
+                opacity: 1
+            }
+
+            90% {
+                opacity: 1
+            }
+
+            100% {
+                transform: translateY(100%);
+                opacity: 0
+            }
+        }
+
+        @keyframes beamSlide {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0
+            }
+
+            10% {
+                opacity: 1
+            }
+
+            90% {
+                opacity: 1
+            }
+
+            100% {
+                transform: translateX(100%);
+                opacity: 0
+            }
+        }
+
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(249, 115, 22, 0.15)
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(249, 115, 22, 0.3)
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-12px)
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg)
+            }
+
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        @keyframes scan-line {
+            0% {
+                top: -2px
+            }
+
+            100% {
+                top: 100%
+            }
+        }
+
+        @keyframes particle-float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3
+            }
+
+            25% {
+                transform: translate(10px, -20px) scale(1.2);
+                opacity: 0.6
+            }
+
+            50% {
+                transform: translate(-5px, -40px) scale(0.8);
+                opacity: 0.4
+            }
+
+            75% {
+                transform: translate(15px, -20px) scale(1.1);
+                opacity: 0.5
+            }
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #050505;
+            overflow-x: hidden;
+            color: #d4d4d4
+        }
+
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace !important
+        }
+
+        .grid-bg {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, black 40%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 70%)
+        }
+
+        .beam-v {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            z-index: 10
+        }
+
+        .beam-v::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent, #F97316, transparent);
+            transform: translateY(-100%);
+            animation: beamDrop 5s cubic-bezier(.4, 0, .2, 1) infinite;
+            opacity: 0.7
+        }
+
+        .floating-card {
+            transition: transform .5s cubic-bezier(.25, .46, .45, .94), box-shadow .5s ease;
+            will-change: transform
+        }
+
+        .floating-card:hover {
+            transform: scale(1.05) translateY(-5px) !important;
+            z-index: 50;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, .5);
+            border-color: rgba(249, 115, 22, 0.3) !important
+        }
+
+        .btn-corner {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all .3s ease;
+            background: rgba(255, 255, 255, 0.02)
+        }
+
+        .btn-corner::before,
+        .btn-corner::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-color: #F97316;
+            opacity: 0;
+            transition: all .3s ease
+        }
+
+        .btn-corner::before {
+            top: 0;
+            left: 0;
+            border-top: 1px solid;
+            border-left: 1px solid;
+            transform: translate(-4px, -4px)
+        }
+
+        .btn-corner::after {
+            bottom: 0;
+            right: 0;
+            border-bottom: 1px solid;
+            border-right: 1px solid;
+            transform: translate(4px, 4px)
+        }
+
+        .btn-corner:hover::before,
+        .btn-corner:hover::after {
+            opacity: 1;
+            transform: translate(0, 0)
+        }
+
+        .btn-corner:hover {
+            border-color: #F97316;
+            background: rgba(249, 115, 22, 0.05)
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: .75rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .75rem;
+            text-transform: uppercase;
+            letter-spacing: .15em;
+            color: rgba(255, 255, 255, 0.3);
+            margin-bottom: 2rem
+        }
+
+        .section-label span {
+            color: #F97316;
+            font-weight: 600
+        }
+
+        .scan-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #F97316, transparent);
+            opacity: 0.15;
+            animation: scan-line 4s linear infinite
+        }
+
+        .project-card {
+            background: #0A0A0A;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all .4s cubic-bezier(0.23, 1, 0.32, 1)
+        }
+
+        .project-card:hover {
+            border-color: rgba(249, 115, 22, 0.4);
+            background: #0f0f0f
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.1)
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 0;
+            width: 9px;
+            height: 9px;
+            background: #F97316;
+            border-radius: 50%
+        }
+
+        .animate-on-scroll {
+            animation-play-state: paused !important;
+        }
+
+        .animate-on-scroll.animate {
+            animation-play-state: running !important;
+        }
+
+        /* Flashlight Effect */
+        .spotlight-card {
+            position: relative;
+            overflow: hidden;
+            background: #060606;
+            --mouse-x: 50%;
+            --mouse-y: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.5s;
+        }
+
+        .card-bg-layer {
+            position: absolute;
+            inset: 0;
+            background-image: var(--bg-img);
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+            opacity: 0.1;
+            transition: opacity 0.6s, transform 0.6s;
+            filter: brightness(0.8) contrast(1.2);
+        }
+
+        .spotlight-card:hover .card-bg-layer,
+        .spotlight-card.active .card-bg-layer {
+            opacity: 0.9;
+            /* Strong reveal when flashlight passes */
+            transform: scale(1.05);
+        }
+
+        .card-darkness-layer {
+            position: absolute;
+            inset: 0;
+            background: #060606;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.5s;
+            -webkit-mask-image: radial-gradient(circle 180px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, black 100%);
+            mask-image: radial-gradient(circle 180px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, black 100%);
+            pointer-events: none;
+        }
+
+        .spotlight-card:hover .card-darkness-layer,
+        .spotlight-card.active .card-darkness-layer {
+            opacity: 1;
+        }
+
+        .spotlight-card .content {
+            position: relative;
+            z-index: 3;
+            pointer-events: auto;
+            background: linear-gradient(to bottom, transparent, rgba(6, 6, 6, 0.3));
+        }
+
+        /* Project Carousel */
+        .carousel-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding-bottom: 3rem;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            gap: 2rem;
+            margin: 0 -1.5rem;
+            padding: 0 1.5rem 3rem 1.5rem;
+            align-items: stretch;
+        }
+
+        .carousel-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .carousel-item {
+            flex: 0 0 85%;
+            min-width: 350px;
+            scroll-snap-align: center;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            opacity: 0.4;
+            transform: scale(0.9);
+            cursor: pointer;
+            border-color: transparent !important;
+        }
+
+        @media(min-width: 1024px) {
+            .carousel-item {
+                flex: 0 0 55%;
+                max-width: 800px;
+            }
+        }
+
+        .carousel-item.active {
+            opacity: 1;
+            transform: scale(1);
+            border-color: rgba(249, 115, 22, 0.5) !important;
+            background: #0A0A0A;
+            z-index: 10;
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, .8);
+        }
+
+        /* Modal Enhancements */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(16px);
+            z-index: 10000;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+            display: flex;
+        }
+
+        .modal-content {
+            background: #050505;
+            border: 1px solid rgba(249, 115, 22, 0.4);
+            width: 100%;
+            max-width: 1100px;
+            max-height: 92vh;
+            overflow-y: auto;
+            transform: translateY(50px) scale(0.98);
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            scrollbar-width: none;
+            position: relative;
+            box-shadow: 0 0 120px rgba(0, 0, 0, 1);
+        }
+
+        .modal-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        .modal-overlay.open .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            color: white;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .modal-close:hover {
+            color: #050505;
+            background: #F97316;
+            border-color: #F97316;
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 0 20px rgba(249, 115, 22, 0.4);
+        }
+
+        /* Modal Image Carousel */
+        .img-carousel-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 21/9;
+            overflow: hidden;
+            background: #111;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .img-carousel {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            width: 100%;
+            height: 100%;
+            scroll-behavior: smooth;
+        }
+
+        .img-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .img-slide {
+            flex: 0 0 100%;
+            scroll-snap-align: start;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: opacity 0.5s;
+            cursor: grab;
+        }
+
+        .img-slide:hover {
+            opacity: 1;
+        }
+
+        .carousel-thumbnails {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: #0A0A0A;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            overflow-x: auto;
+        }
+
+        .thumb-item {
+            width: 80px;
+            height: 45px;
+            object-fit: cover;
+            cursor: pointer;
+            opacity: 0.4;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .thumb-item:hover {
+            opacity: 0.8;
+        }
+
+        .thumb-item.active {
+            opacity: 1;
+            border-color: #F97316;
+        }
+
+        .stack-tag {
+            transition: all 0.3s ease;
+        }
+
+        .stack-tag:hover {
+            border-color: #F97316;
+            box-shadow: 0 0 15px rgba(249, 115, 22, 0.2);
+            color: #F97316;
+            background: rgba(249, 115, 22, 0.05);
+            transform: translateY(-2px);
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important
+            }
+        }
+    </style>
+</head>
+
+<body class="selection:bg-[#F97316] selection:text-black">
+
+    <!-- BG Elements -->
+    <div class="fixed inset-0 grid-bg pointer-events-none z-0"></div>
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav
+        class="fixed top-0 left-0 w-full z-[100] bg-black/80 backdrop-blur-md border-b border-white/10 px-6 lg:px-12 py-4 flex justify-between items-center">
+        <a href="#" class="flex items-center gap-2 text-white hover:text-[#F97316] transition-colors group">
+            <div class="w-3 h-3 bg-[#F97316] group-hover:rotate-45 transition-transform"></div>
+            <span class="font-mono text-xs uppercase tracking-widest">Vinicius Grossi</span>
+        </a>
+        <div class="hidden md:flex gap-8 font-mono text-[10px] uppercase tracking-widest text-neutral-500">
+            <a href="#hero" class="hover:text-[#F97316] transition-colors">Início</a>
+            <a href="#about" class="hover:text-[#F97316] transition-colors">Sobre</a>
+            <a href="#skills" class="hover:text-[#F97316] transition-colors">Skills</a>
+            <a href="#projects" class="hover:text-[#F97316] transition-colors">Projetos</a>
+            <a href="#experience" class="hover:text-[#F97316] transition-colors">Experiência</a>
+        </div>
+        <a href="https://www.linkedin.com/in/viniciusgrossi/" target="_blank"
+            class="border border-white/10 px-4 py-1.5 text-[10px] font-mono uppercase tracking-widest hover:bg-white hover:text-black transition-all">Contato</a>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative min-h-screen flex items-center pt-20 px-6 lg:px-12 overflow-hidden">
+        <div class="max-w-[90rem] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-10">
+            <div class="lg:col-span-8 flex flex-col justify-center">
+                <div class="animate-on-scroll" style="animation:fadeSlideIn .8s ease-out .1s both">
+                    <span
+                        class="inline-block font-mono text-[#F97316] text-xs uppercase tracking-[0.3em] mb-4">Cientista
+                        de Dados & Especialista em IA</span>
+                </div>
+                <h1 class="text-6xl lg:text-[7.5rem] leading-[0.85] font-bold text-white tracking-tighter mb-8 animate-on-scroll"
+                    style="animation:fadeSlideIn .8s ease-out .2s both">
+                    VINICIUS<br /><span class="text-neutral-700">GROSSI</span>
+                </h1>
+                <p class="text-xl lg:text-2xl text-neutral-400 max-w-2xl font-light mb-12 animate-on-scroll"
+                    style="animation:fadeSlideIn .8s ease-out .4s both">
+                    Transformando dados complexos em <span class="text-white">automações inteligentes</span> e insights
+                    estratégicos.
+                </p>
+                <div class="flex flex-wrap gap-6 animate-on-scroll" style="animation:fadeSlideIn .8s ease-out .6s both">
+                    <a href="#projects" class="btn-corner group">
+                        <span
+                            class="flex items-center gap-3 text-white font-medium uppercase tracking-wider text-sm">Ver
+                            Projetos <span class="iconify text-lg" data-icon="solar:arrow-right-up-bold"></span></span>
+                    </a>
+                    <a href="https://github.com/ViniciusGrossi" target="_blank"
+                        class="flex items-center gap-3 text-neutral-500 hover:text-white transition-colors uppercase tracking-[0.2em] text-xs font-mono">
+                        GitHub <span class="iconify text-lg" data-icon="solar:share-circle-bold-duotone"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="lg:col-span-4 relative flex items-center justify-center animate-on-scroll"
+                style="animation:fadeSlideIn .8s ease-out .8s both">
+                <div class="relative w-full aspect-square max-w-[400px]">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-tr from-[#F97316]/20 to-transparent rounded-full blur-3xl opacity-50 animate-pulse">
+                    </div>
+                    <div
+                        class="absolute inset-0 border border-white/5 rounded-full rotate-45 animate-[spin_20s_linear_infinite]">
+                    </div>
+                    <div
+                        class="absolute inset-10 border border-[#F97316]/10 rounded-full -rotate-45 animate-[spin_15s_linear_infinite]">
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span class="iconify text-9xl text-white/5" data-icon="solar:atom-bold-duotone"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 hidden lg:block animate-bounce">
+            <span class="iconify text-2xl text-neutral-700" data-icon="solar:mouse-minimalistic-bold-duotone"></span>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-32 px-6 lg:px-12 max-w-[90rem] mx-auto border-t border-white/5 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+            <div class="lg:col-span-4">
+                <div class="section-label animate-on-scroll" style="animation:fadeSlideIn .6s ease-out 0s both">
+                    <span>01</span> Sobre mim
+                </div>
+                <h2 class="text-4xl lg:text-5xl text-white tracking-tighter font-medium leading-tight animate-on-scroll"
+                    style="animation:fadeSlideIn .6s ease-out .1s both">Evoluindo a inteligência orientada a dados.</h2>
+            </div>
+            <div class="lg:col-span-8 flex flex-col gap-8">
+                <p class="text-xl text-neutral-400 font-light leading-relaxed animate-on-scroll"
+                    style="animation:fadeSlideIn .6s ease-out .2s both">
+                    Cientista de Dados com experiência em análise, automação de processos e desenvolvimento de soluções
+                    com IA. Atuo na criação de dashboards analíticos, aplicações de controle de estoque e sistemas de
+                    classificação de documentos.
+                </p>
+                <p class="text-xl text-neutral-400 font-light leading-relaxed animate-on-scroll"
+                    style="animation:fadeSlideIn .6s ease-out .3s both">
+                    Especialista em construir <span class="text-[#F97316] font-medium">pipelines de dados
+                        Medallion</span>, análise exploratória e modelos preditivos, além de lecionar sobre Big Data e
+                    Inteligência Artificial Generativa.
+                </p>
+                <div class="grid grid-cols-2 lg:grid-cols-3 gap-8 mt-8 animate-on-scroll"
+                    style="animation:fadeSlideIn .6s ease-out .4s both">
+                    <div class="group">
+                        <div class="text-4xl font-mono text-white tracking-tighter" data-counter="2" data-suffix=" sem">
+                            2 sem</div>
+                        <div
+                            class="text-[10px] font-mono uppercase text-neutral-500 mt-2 tracking-widest group-hover:text-[#F97316] transition-colors">
+                            Redução de tempo em Inventário</div>
+                    </div>
+                    <div class="group">
+                        <div class="text-4xl font-mono text-white tracking-tighter" data-counter="98" data-suffix="%">
+                            98%</div>
+                        <div
+                            class="text-[10px] font-mono uppercase text-neutral-500 mt-2 tracking-widest group-hover:text-[#F97316] transition-colors">
+                            Acurácia em Modelos ML</div>
+                    </div>
+                    <div class="group">
+                        <div class="text-4xl font-mono text-white tracking-tighter" data-counter="1000" data-suffix="+">
+                            1000+</div>
+                        <div
+                            class="text-[10px] font-mono uppercase text-neutral-500 mt-2 tracking-widest group-hover:text-[#F97316] transition-colors">
+                            Arquivos Processados via OCR</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills" class="py-32 px-6 lg:px-12 max-w-[90rem] mx-auto border-t border-white/5 relative z-10">
+        <div class="section-label animate-on-scroll" style="animation:fadeSlideIn .6s ease-out 0s both"><span>02</span>
+            Skills & Arsenal</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- IA & Automation -->
+            <div class="p-8 bg-[#0A0A0A] border border-white/5 relative group hover:border-[#F97316]/30 transition-all animate-on-scroll"
+                style="animation:fadeSlideIn .6s ease-out .1s both">
+                <div class="beam-v" style="right:0"></div>
+                <span class="iconify text-3xl text-[#F97316] mb-6" data-icon="solar:magic-stick-bold-duotone"></span>
+                <h3 class="text-lg text-white font-medium mb-4 uppercase tracking-wider">IA & Automação</h3>
+                <div class="flex flex-wrap gap-2">
+                    <span
+                        class="bg-white/5 border border-white/10 px-2 py-1 text-[10px] font-mono uppercase">LLMs</span>
+                    <span class="bg-white/5 border border-white/10 px-2 py-1 text-[10px] font-mono uppercase">Agentes de
+                        IA</span>
+                    <span class="bg-white/5 border border-white/10 px-2 py-1 text-[10px] font-mono uppercase">RAG</span>
+                    <span class="bg-white/5 border border-white/10 px-2 py-1 text-[10px] font-mono uppercase">N8N</span>
+                    <span class="bg-white/5 border border-white/10 px-2 py-1 text-[10px] font-mono uppercase">MCP</span>
+                    <span class="bg-white/5 border border-white/10 px-2 py-1 text-[10px] font-mono uppercase">Prompt
+                        Eng.</span>
+                </div>
+            </div>
+            <!-- Data Science -->
+            <div class="p-8 bg-[#0A0A0A] border border-white/5 relative group hover:border-[#F97316]/30 transition-all animate-on-scroll"
+                style="animation:fadeSlideIn .6s ease-out .2s both">
+                <div class="beam-v" style="right:0"></div>
+                <span class="iconify text-3xl text-[#F97316] mb-6" data-icon="solar:graph-up-bold-duotone"></span>
+                <h3 class="text-lg text-white font-medium mb-4 uppercase tracking-wider">Data Science</h3>
+                <div class="flex flex-wrap gap-2">
+                    <span
+                        class="bg-white/5 border border-white/10 px-2 py-1 text-[10px] font-mono uppercase">Python</span>
+                    <span class="bg-white/5 border border-white/10 px-2 py-1 text-[10px] font-mono uppercase">SQL</span>
+                    <span class="bg-white/5 border border-white/10 px-2 py-1 text-[10px] font-mono uppercase">Machine
+                        Learning</span>
+                    <span class="bg-white/5 border border-white/10 px-2 py-1 text-[10px] font-mono uppercase">EDA</span>
+                    <span
+                        class="bg-white/5 border border-white/10 px-2 py-1 text-[10px] font-mono uppercase">Streamlit</span>
+                    <span class="bg-white/5 border border-white/10 px-2 py-1 text-[10px] font-mono uppercase">Power
+                        BI</span>
+                </div>
+            </div>
+            <!-- Data Engineering -->
+            <div class="p-8 bg-[#0A0A0A] border border-white/5 relative group hover:border-[#F97316]/30 transition-all animate-on-scroll"
+                style="animation:fadeSlideIn .6s ease-out .3s both">
+                <span class="iconify text-3xl text-[#F97316] mb-6" data-icon="solar:database-bold-duotone"></span>
+                <h3 class="text-lg text-white font-medium mb-4 uppercase tracking-wider">Data Engineering</h3>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-white/5 border border-white/10 px-2 py-1 text-[10px] font-mono uppercase">ETL /
+                        ELT</span>
+                    <span
+                        class="bg-white/5 border border-white/10 px-2 py-1 text-[10px] font-mono uppercase">Arquitetura
+                        Medallion</span>
+                    <span
+                        class="bg-white/5 border border-white/10 px-2 py-1 text-[10px] font-mono uppercase">Airflow</span>
+                    <span class="bg-white/5 border border-white/10 px-2 py-1 text-[10px] font-mono uppercase">dbt</span>
+                    <span
+                        class="bg-white/5 border border-white/10 px-2 py-1 text-[10px] font-mono uppercase">BigQuery</span>
+                    <span
+                        class="bg-white/5 border border-white/10 px-2 py-1 text-[10px] font-mono uppercase">Scraping</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="py-32 px-6 lg:px-12 max-w-[90rem] mx-auto border-t border-white/5 relative z-10">
+        <div class="flex flex-col lg:flex-row justify-between items-end mb-16 gap-8">
+            <div class="max-w-xl">
+                <div class="section-label animate-on-scroll" style="animation:fadeSlideIn .6s ease-out 0s both">
+                    <span>03</span> Showcase
+                </div>
+                <h2 class="text-4xl lg:text-6xl text-white tracking-tighter font-medium leading-tight animate-on-scroll"
+                    style="animation:fadeSlideIn .6s ease-out .1s both">Projetos em Destaque.</h2>
+            </div>
+            <div class="animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .2s both">
+                <p class="text-neutral-500 font-mono text-xs uppercase tracking-widest mb-4">Filtrar por Tier</p>
+                <div class="flex gap-4">
+                    <button id="filter-main"
+                        class="filter-btn active text-[#F97316] font-mono text-xs border-b border-[#F97316] cursor-pointer transition-all">Principais</button>
+                    <button id="filter-legacy"
+                        class="filter-btn text-neutral-500 font-mono text-xs hover:text-white cursor-pointer transition-all">Legacy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Projects Carousel -->
+        <div class="relative w-full max-w-[100vw] -ml-6 lg:-ml-12 px-6 lg:px-12 animate-on-scroll"
+            style="animation:fadeSlideIn .8s ease-out .3s both">
+            <!-- Carousel Container -->
+            <div class="carousel-container" id="projects-carousel">
+                <!-- Project Cards will be injected by JS -->
+            </div>
+
+            <!-- Custom Scroll Hint / Arrows -->
+            <div class="flex justify-center gap-6 mt-4">
+                <button id="carousel-prev" class="text-neutral-500 hover:text-[#F97316] transition-colors p-2"><span
+                        class="iconify text-2xl" data-icon="solar:arrow-left-bold-duotone"></span></button>
+                <div class="font-mono text-[10px] text-neutral-600 uppercase tracking-widest flex items-center">Deslize
+                    para navegar</div>
+                <button id="carousel-next" class="text-neutral-500 hover:text-[#F97316] transition-colors p-2"><span
+                        class="iconify text-2xl" data-icon="solar:arrow-right-bold-duotone"></span></button>
+            </div>
+        </div>
+
+        <!-- Legacy Projects Note Removed (Integrated into Carousel) -->
+    </section>
+
+
+
+    <!-- PROJECT MODAL -->
+    <div id="project-modal" class="modal-overlay">
+        <div class="modal-content relative" role="dialog" aria-modal="true">
+            <button id="modal-close" class="modal-close"><span class="iconify text-2xl"
+                    data-icon="solar:close-circle-bold-duotone"></span></button>
+
+            <!-- Image Carousel -->
+            <div class="img-carousel-wrapper">
+                <div id="modal-img-carousel" class="img-carousel">
+                    <!-- Images injected via JS -->
+                </div>
+            </div>
+
+            <!-- Thumbnails Strip -->
+            <div id="modal-thumbnails" class="carousel-thumbnails">
+                <!-- Thumbnails injected via JS -->
+            </div>
+
+            <!-- Content Details -->
+            <div class="p-8 lg:p-12 relative overflow-hidden group">
+                <div
+                    class="absolute -right-20 -top-20 w-64 h-64 bg-[#F97316]/5 rounded-full blur-3xl group-hover:bg-[#F97316]/10 transition-colors duration-700 pointer-events-none">
+                </div>
+
+                <span id="modal-category"
+                    class="font-mono text-[10px] text-[#F97316] uppercase tracking-widest mb-4 block"></span>
+                <h3 id="modal-title" class="text-3xl lg:text-5xl text-white font-medium mb-8"></h3>
+
+                <h4
+                    class="text-sm font-mono text-neutral-500 uppercase tracking-widest mb-4 border-b border-white/5 pb-2">
+                    Sobre o Projeto</h4>
+                <p id="modal-desc" class="text-neutral-400 text-lg leading-relaxed mb-10 font-light"></p>
+
+                <h4
+                    class="text-sm font-mono text-neutral-500 uppercase tracking-widest mb-4 border-b border-white/5 pb-2">
+                    Tecnologias Utilizadas</h4>
+                <div id="modal-stack" class="flex flex-wrap gap-3 mb-10">
+                    <!-- Stack injected via JS -->
+                </div>
+
+                <div class="flex flex-wrap gap-6 pt-6 border-t border-white/5">
+                    <a id="modal-github" href="#" target="_blank"
+                        class="btn-corner group !py-4 transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg hover:shadow-[#F97316]/20">
+                        <span class="flex items-center gap-3 text-white font-medium uppercase tracking-widest text-xs">
+                            Repositório <span class="iconify text-xl group-hover:rotate-12 transition-transform"
+                                data-icon="solar:code-bold-duotone"></span>
+                        </span>
+                    </a>
+                    <a id="modal-live" href="#" target="_blank"
+                        class="btn-corner group !py-4 transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg border border-[#F97316]/30 hover:border-[#F97316]">
+                        <span
+                            class="flex items-center gap-3 text-[#F97316] font-bold uppercase tracking-widest text-xs">
+                            Visitar Site <span
+                                class="iconify text-xl group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform"
+                                data-icon="solar:arrow-right-up-bold-duotone"></span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer
+        class="py-24 px-6 lg:px-12 max-w-[90rem] mx-auto border-t border-white/5 bg-[#050505] relative z-10 text-center">
+        <h2 class="text-4xl lg:text-7xl text-white font-bold tracking-tighter mb-12">PRONTO PARA O<br /><span
+                class="text-[#F97316]">PRÓXIMO NÍVEL?</span></h2>
+        <div class="flex flex-wrap justify-center gap-8 mb-16">
+            <a href="mailto:viniciussggrossi@gmail.com" class="btn-corner group">
+                <span class="flex items-center gap-3 text-white font-medium uppercase tracking-wider text-sm">E-mail
+                    <span class="iconify" data-icon="solar:letter-bold"></span></span>
+            </a>
+            <a href="https://www.linkedin.com/in/viniciusgrossi/" target="_blank" class="btn-corner group">
+                <span class="flex items-center gap-3 text-white font-medium uppercase tracking-wider text-sm">LinkedIn
+                    <span class="iconify" data-icon="solar:link-bold"></span></span>
+            </a>
+            <a href="#"
+                class="group relative isolate inline-flex items-center justify-center gap-2 overflow-hidden bg-transparent px-8 py-4 text-sm font-semibold text-white transition-all duration-300 hover:shadow-[0_0_30px_-5px_rgba(249,115,22,0.3)]"
+                style="--spread:90deg;--shimmer-color:#F97316;--speed:3s">
+                <div class="absolute inset-0 -z-20 overflow-hidden">
+                    <div class="absolute inset-[-100%] w-[300%] h-[300%] animate-[spin_3s_linear_infinite]">
+                        <div class="absolute inset-0"
+                            style="background:conic-gradient(from calc(270deg - (var(--spread) * 0.5)),transparent 0,var(--shimmer-color) var(--spread),transparent var(--spread))">
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="absolute inset-[1px] -z-10 bg-[#050505] transition-colors duration-300 group-hover:bg-[#0A0A0A]">
+                </div>
+                <span class="iconify text-lg" data-icon="solar:download-minimalistic-bold-duotone"
+                    style="color:#F97316"></span> Baixar Currículo
+            </a>
+        </div>
+        <p class="text-[10px] font-mono text-neutral-600 uppercase tracking-widest">© 2026 Vinicius Grossi · Data & AI
+            Specialist · Brasília, BR</p>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Particles
+        (function () { const c = document.getElementById('particles'); if (!c) return; for (let i = 0; i < 40; i++) { const d = document.createElement('div'); d.style.cssText = `position:absolute;width:${Math.random() * 2 + 1}px;height:${Math.random() * 2 + 1}px;background:#F97316;border-radius:50%;opacity:${Math.random() * 0.2 + 0.05};left:${Math.random() * 100}%;top:${Math.random() * 100}%;animation:particle-float ${Math.random() * 10 + 5}s ease-in-out ${Math.random() * 5}s infinite`; c.appendChild(d) } })();
+
+        // Intersection Observer for animations
+        (function () {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                        // If it has counters, start them
+                        const counters = entry.target.querySelectorAll('[data-counter]');
+                        if (counters.length) animateCounters(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+        })();
+
+        // Counter animation
+        function animateCounters(parent) {
+            parent.querySelectorAll('[data-counter]').forEach(el => {
+                const target = parseInt(el.dataset.counter);
+                const suffix = el.dataset.suffix || '';
+                let current = 0;
+                const duration = 2000;
+                const stepTime = 20;
+                const increment = Math.ceil(target / (duration / stepTime));
+
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    el.textContent = current.toLocaleString('pt-BR') + suffix;
+                }, stepTime);
+            });
+        }
+
+        // Project Data
+        const projectsData = [
+            {
+                id: 'win-analytics',
+                title: 'Win-Analytics',
+                category: 'Finanças & IA',
+                icon: 'solar:chart-2-bold-duotone',
+                shortDesc: 'Plataforma premium de gestão e análise de apostas esportivas com IA integrada.',
+                fullDesc: 'Win Analytics é uma plataforma premium de gestão e análise de apostas esportivas com foco em tomada de decisão baseada em dados. O app processa o histórico completo do usuário para gerar métricas estatísticas avançadas como Sharpe Ratio, drawdown máximo, volatilidade e ROI segmentado por casa, categoria e período. Um dos grandes diferenciais é o pipeline de automação inteligente: o usuário envia a foto do comprovante pelo Telegram ou WhatsApp, um fluxo em N8N realiza OCR na imagem, uma IA extrai os dados relevantes e os envia automaticamente ao Supabase — sem nenhuma entrada manual. O projeto também conta com um agente de IA conversacional que analisa os dados reais do usuário, identifica padrões e sugere ajustes estratégicos, funcionando como um verdadeiro copiloto financeiro.',
+                stack: ['React', 'TypeScript', 'N8N', 'Python', 'Tailwind CSS', 'Supabase', 'PostgreSQL', 'Framer Motion'],
+                images: [
+                    'img/win-analytics-1.png',
+                    'img/win-analytics-2.png',
+                    'img/win-analytics-3.png',
+                    'img/win-analytics-4.png'
+                ],
+                sector: 'Setor: Finanças Esportivas',
+                github: 'https://github.com/ViniciusGrossi/Win-Analytics',
+                live: 'https://win-analytics.vercel.app/'
+            },
+            {
+                id: 'proj1',
+                title: 'Agentes de IA Políticos',
+                category: 'IA / Automação',
+                icon: 'solar:users-group-two-rounded-bold-duotone',
+                shortDesc: 'Desenvolvimento de agentes para atendimento automatizado e qualificação de demandas cidadãs para gabinetes legislativos.',
+                fullDesc: 'Um sistema completo de IA desenvolvido para automatizar o atendimento em gabinetes políticos. Utiliza fluxos complexos no N8N conectados à API da OpenAI para interpretar e classificar demandas dos cidadãos via WhatsApp. Os dados são armazenados e estruturados no Supabase, permitindo a geração de relatórios e painéis de controle em tempo real.',
+                stack: ['N8N', 'OpenAI API', 'Supabase', 'Python'],
+                images: ['https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800', 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=800'],
+                sector: 'Setor: Público / Político',
+                github: 'https://github.com/ViniciusGrossi',
+                live: null
+            },
+            {
+                id: 'proj2',
+                title: 'Gestão de Banca Profissional',
+                category: 'Next.js / OCR / RAG',
+                icon: 'solar:wallet-money-bold-duotone',
+                shortDesc: 'Plataforma com inserção automática via Telegram (OCR), extração via IA e análise estatística avançada com RAG.',
+                fullDesc: 'Plataforma end-to-end para investidores esportivos. Os usuários enviam screenshots de apostas num bot do Telegram. Um pipeline de OCR + IA extrai os dados estruturados (odd, valor, mercado) e os envia ao banco de dados. O frontend em Next.js exibe dashboards avançados de performance (ROI, Yield). Integra um módulo RAG para que o usuário converse com seus próprios dados e obtenha insights estratégicos.',
+                stack: ['Next.js', 'Tailwind', 'Python', 'OCR', 'LangChain', 'PostgreSQL'],
+                images: ['https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&q=80&w=800', 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800'],
+                sector: 'Setor: Financeiro / Betting',
+                github: 'https://github.com/ViniciusGrossi',
+                live: null
+            },
+            {
+                id: 'proj3',
+                title: 'Data Warehouse Medallion',
+                category: 'Engenharia de Dados',
+                icon: 'solar:database-bold-duotone',
+                shortDesc: 'Construção de uma arquitetura Medallion com consultor de IA integrado para insights automáticos.',
+                fullDesc: 'Desenvolvimento de uma pipeline ETL robusta que processa milhões de registros diários, organizando-os das camadas Bronze, Silver e Gold. Acoplado à camada Gold, um assistente de IA permite que executivos façam perguntas em linguagem natural (ex: "Qual o produto mais vendido no último trimestre?") e recebam respostas precisas e imediatas baseadas em dados reais.',
+                stack: ['Python', 'Airflow', 'BigQuery', 'OpenAI'],
+                images: ['https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800', 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800'],
+                sector: 'Setor: Varejo / E-commerce',
+                github: 'https://github.com/ViniciusGrossi',
+                live: null
+            },
+            {
+                id: 'legacy-fome-zero',
+                title: 'Projeto Fome Zero',
+                category: 'Dashboard / Business',
+                icon: 'solar:chef-hat-bold-duotone',
+                shortDesc: 'Dashboard estratégico para marketplace de delivery com insights de negócio em tempo real.',
+                fullDesc: 'Desenvolvimento de um dashboard gerencial completo utilizando Python e Streamlit. O projeto envolve limpeza e tratamento de dados complexos para gerar métricas de performance (KPIs), análise de crescimento e visualizações interativas que auxiliam na tomada de decisão estratégica para expansão de mercado.',
+                stack: ['Python', 'Pandas', 'Streamlit', 'Folium'],
+                images: ['https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=800'],
+                sector: 'Setor: Business Intelligence',
+                github: 'https://github.com/ViniciusGrossi',
+                live: 'https://projeto-fome-zero.streamlit.app'
+            },
+            {
+                id: 'legacy-mercado-livre',
+                title: 'Monitoramento Mercado Livre',
+                category: 'Web Scraping / ETL',
+                icon: 'solar:shop-bold-duotone',
+                shortDesc: 'Web scraping automatizado para monitoramento de preços e tendências em e-commerce.',
+                fullDesc: 'Sistema de monitoramento de mercado focado no Mercado Livre. Utiliza Scrapy para extração de dados em larga escala, permitindo analisar variações de preço, competitividade de marcas e sentimentos de reviews. Os dados são estruturados e exibidos em um painel interativo para identificação de oportunidades de venda.',
+                stack: ['Python', 'Scrapy', 'SQL', 'Streamlit'],
+                images: ['https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&q=80&w=800'],
+                sector: 'Setor: E-commerce Analytics',
+                github: 'https://github.com/ViniciusGrossi',
+                live: 'https://mercadolivre-tracked-prices.streamlit.app'
+            },
+            {
+                id: 'legacy-almox',
+                title: 'Consulta Almox (Automação)',
+                category: 'Automação / Python',
+                icon: 'solar:box-bold-duotone',
+                shortDesc: 'Otimização de processos de inventário e reconciliação de estoque via Python.',
+                fullDesc: 'Solução desenvolvida para automatizar a gestão de almoxarifado integrada a sistemas CRM. O sistema processa dados de inventário, identifica divergências automaticamente e agiliza o processo de conferência, reduzindo erros manuais e tempo de operação em fluxos logísticos.',
+                stack: ['Python', 'Streamlit', 'Excel Automation'],
+                images: ['https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800'],
+                sector: 'Setor: Logística / Ops',
+                github: 'https://github.com/ViniciusGrossi',
+                live: 'https://consulta-almox.streamlit.app'
+            }
+        ];
+
+        function renderProjects(filter = 'main') {
+            const carouselContainer = document.getElementById('projects-carousel');
+            if (!carouselContainer) return;
+
+            carouselContainer.innerHTML = '';
+
+            let filteredData = projectsData;
+            if (filter === 'main') {
+                filteredData = projectsData.filter(p => !p.id.startsWith('legacy-'));
+            } else if (filter === 'legacy') {
+                filteredData = projectsData.filter(p => p.id.startsWith('legacy-'));
+            }
+
+            const extendedData = [...filteredData, ...filteredData, ...filteredData];
+
+            extendedData.forEach((proj, idx) => {
+                const isActive = idx === Math.floor(extendedData.length / 2) ? 'active' : '';
+                const stackHtml = proj.stack.slice(0, 3).map(s => `<span class="bg-white/5 border border-white/10 px-2 py-1 text-[10px] font-mono text-neutral-400">${s}</span>`).join('');
+
+                let bgImg = proj.images.length > 0 ? proj.images[0] : '';
+                if (bgImg.includes(':') || bgImg.startsWith('/')) {
+                    bgImg = bgImg.split(/[/\\]/).pop();
+                }
+
+                const html = `
+                    <div class="carousel-item spotlight-card p-10 flex flex-col justify-between ${isActive}" data-id="${proj.id}" style="--bg-img: url('./${bgImg}');">
+                        <div class="card-bg-layer"></div>
+                        <div class="card-darkness-layer"></div>
+                        <div class="content flex flex-col justify-between h-full">
+                            <div>
+                                <div class="flex justify-between items-start mb-12">
+                                    <div class="bg-white/5 p-3 border border-white/10 backdrop-blur-sm"><span class="iconify text-3xl text-white" data-icon="${proj.icon}"></span></div>
+                                    <span class="font-mono text-[10px] text-neutral-400 font-bold uppercase tracking-widest bg-black/50 px-3 py-1 rounded">${proj.category}</span>
+                                </div>
+                                <h3 class="text-3xl text-white font-medium mb-4 transition-colors proj-title drop-shadow-md">${proj.title}</h3>
+                                <p class="text-neutral-300 text-lg leading-relaxed mb-8 font-light drop-shadow">${proj.shortDesc}</p>
+                                <div class="flex flex-wrap gap-2 relative z-10">
+                                    ${stackHtml}
+                                    ${proj.stack.length > 3 ? `<span class="bg-white/5 border border-white/10 px-2 py-1 text-[10px] font-mono text-neutral-400">+${proj.stack.length - 3}</span>` : ''}
+                                </div>
+                            </div>
+                            <div class="mt-12 flex justify-between items-center relative z-10">
+                                <button class="open-modal-btn btn-corner !p-3 !py-2 text-xs font-mono uppercase tracking-widest text-white hover:text-[#F97316]">Ver Completo</button>
+                                <div class="text-[10px] font-mono text-neutral-400 font-bold uppercase tracking-widest hidden md:block bg-black/50 px-3 py-1 rounded">${proj.sector}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                carouselContainer.insertAdjacentHTML('beforeend', html);
+            });
+
+            setupCarouselListeners();
+        }
+
+        let isAutoPlay = true;
+        let autoPlayInterval;
+
+        function setupCarouselListeners() {
+            const carouselContainer = document.getElementById('projects-carousel');
+            const items = document.querySelectorAll('.carousel-item');
+            if (!carouselContainer || items.length === 0) return;
+
+            items.forEach(item => {
+                // Spotlight follow
+                item.addEventListener('mousemove', e => {
+                    const rect = item.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const safeX = Math.max(0, Math.min(x, rect.width));
+                    const safeY = Math.max(0, Math.min(y, rect.height));
+                    item.style.setProperty('--mouse-x', `${safeX}px`);
+                    item.style.setProperty('--mouse-y', `${safeY}px`);
+                });
+
+                item.addEventListener('mouseenter', () => isAutoPlay = false);
+                item.addEventListener('mouseleave', () => isAutoPlay = true);
+
+                // Click to focus or open
+                item.addEventListener('click', (e) => {
+                    if (e.target.closest('.open-modal-btn')) {
+                        openModal(item.dataset.id);
+                        return;
+                    }
+                    items.forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                    item.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                });
+            });
+
+            // Intersection Observer to set active on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+                        items.forEach(i => i.classList.remove('active'));
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { root: carouselContainer, threshold: 0.5 });
+            items.forEach(item => observer.observe(item));
+
+            // Arrows logic
+            const nextBtn = document.getElementById('carousel-next');
+            const prevBtn = document.getElementById('carousel-prev');
+
+            if (nextBtn && prevBtn) {
+                const newNext = nextBtn.cloneNode(true);
+                const newPrev = prevBtn.cloneNode(true);
+                nextBtn.parentNode.replaceChild(newNext, nextBtn);
+                prevBtn.parentNode.replaceChild(newPrev, prevBtn);
+
+                newNext.addEventListener('click', () => {
+                    const cardWidth = items[0].offsetWidth + 32;
+                    carouselContainer.scrollBy({ left: cardWidth, behavior: 'smooth' });
+                });
+                newPrev.addEventListener('click', () => {
+                    const cardWidth = items[0].offsetWidth + 32;
+                    carouselContainer.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+                });
+            }
+
+            // Infinite scroll reset
+            carouselContainer.addEventListener('scroll', () => {
+                const maxScrollLeft = carouselContainer.scrollWidth - carouselContainer.clientWidth;
+                if (carouselContainer.scrollLeft <= 5) {
+                    carouselContainer.scrollLeft = maxScrollLeft / 3;
+                } else if (carouselContainer.scrollLeft >= maxScrollLeft - 5) {
+                    carouselContainer.scrollLeft = maxScrollLeft / 3;
+                }
+            });
+
+            // Autoplay setup
+            if (autoPlayInterval) clearInterval(autoPlayInterval);
+            autoPlayInterval = setInterval(() => {
+                const modalOverlay = document.getElementById('project-modal');
+                if (isAutoPlay && modalOverlay && !modalOverlay.classList.contains('open')) {
+                    const firstItem = document.querySelector('.carousel-item');
+                    if (firstItem) {
+                        const cardWidth = firstItem.offsetWidth + 32;
+                        carouselContainer.scrollBy({ left: cardWidth, behavior: 'smooth' });
+                    }
+                }
+            }, 3000);
+
+            // Center initial active
+            setTimeout(() => {
+                const centerActive = carouselContainer.querySelector('.carousel-item.active');
+                if (centerActive) centerActive.scrollIntoView({ inline: 'center', behavior: 'instant' });
+            }, 50);
+        }
+
+        // Project Filters
+        document.getElementById('filter-main')?.addEventListener('click', function () {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active', 'text-[#F97316]', 'border-b', 'border-[#F97316]');
+                btn.classList.add('text-neutral-500');
+            });
+            this.classList.add('active', 'text-[#F97316]', 'border-b', 'border-[#F97316]');
+            this.classList.remove('text-neutral-500');
+            renderProjects('main');
+        });
+
+        document.getElementById('filter-legacy')?.addEventListener('click', function () {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active', 'text-[#F97316]', 'border-b', 'border-[#F97316]');
+                btn.classList.add('text-neutral-500');
+            });
+            this.classList.add('active', 'text-[#F97316]', 'border-b', 'border-[#F97316]');
+            this.classList.remove('text-neutral-500');
+            renderProjects('legacy');
+        });
+
+        // Modal Elements
+        const modalOverlay = document.getElementById('project-modal');
+        const modalClose = document.getElementById('modal-close');
+        const minnerCarousel = document.getElementById('modal-img-carousel');
+        const mThumbs = document.getElementById('modal-thumbnails');
+        const mTitle = document.getElementById('modal-title');
+        const mCat = document.getElementById('modal-category');
+        const mDesc = document.getElementById('modal-desc');
+        const mStack = document.getElementById('modal-stack');
+        const mGithub = document.getElementById('modal-github');
+        const mLive = document.getElementById('modal-live');
+
+        function openModal(projId) {
+            const proj = projectsData.find(p => p.id === projId);
+            if (!proj) return;
+
+            mTitle.textContent = proj.title;
+            mCat.textContent = proj.category;
+            mDesc.textContent = proj.fullDesc;
+
+            if (proj.github) {
+                mGithub.href = proj.github;
+                mGithub.style.display = 'inline-flex';
+            } else {
+                mGithub.style.display = 'none';
+            }
+
+            if (proj.live) {
+                mLive.href = proj.live;
+                mLive.style.display = 'inline-flex';
+            } else {
+                mLive.style.display = 'none';
+            }
+
+            mStack.innerHTML = proj.stack.map(s => `<span class="stack-tag bg-white/5 border border-white/10 px-3 py-1.5 text-xs font-mono text-neutral-300 uppercase cursor-default">${s}</span>`).join('');
+
+            const cleanImages = proj.images.map(img => {
+                if (img.includes(':') || img.startsWith('/')) {
+                    return './' + img.split(/[/\\]/).pop();
+                }
+                return img.startsWith('http') ? img : './' + img;
+            });
+
+            minnerCarousel.innerHTML = cleanImages.map(img => `<img src="${img}" class="img-slide" alt="Project Screenshot">`).join('');
+
+            if (cleanImages.length > 1) {
+                mThumbs.style.display = 'flex';
+                mThumbs.innerHTML = cleanImages.map((img, i) => `<img src="${img}" class="thumb-item ${i === 0 ? 'active' : ''}" data-idx="${i}" alt="Thumbnail">`).join('');
+                const thumbs = mThumbs.querySelectorAll('.thumb-item');
+                const slides = minnerCarousel.querySelectorAll('.img-slide');
+
+                thumbs.forEach(thumb => {
+                    thumb.addEventListener('click', () => {
+                        const idx = parseInt(thumb.dataset.idx);
+                        slides[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+                        thumbs.forEach(t => t.classList.remove('active'));
+                        thumb.classList.add('active');
+                    });
+                });
+
+                minnerCarousel.addEventListener('scroll', () => {
+                    const idx = Math.round(minnerCarousel.scrollLeft / minnerCarousel.clientWidth);
+                    thumbs.forEach(t => t.classList.remove('active'));
+                    if (thumbs[idx]) thumbs[idx].classList.add('active');
+                });
+            } else {
+                mThumbs.style.display = 'none';
+            }
+
+            modalOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            modalOverlay.querySelector('.modal-content').scrollTop = 0;
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        modalClose?.addEventListener('click', closeModal);
+        modalOverlay?.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('.open-modal-btn');
+            if (btn) {
+                const card = btn.closest('.carousel-item');
+                if (card) openModal(card.dataset.id);
+            }
+        });
+
+        // Initial Layout
+        renderProjects('main');
+    </script>
+</body>
+
+</html>

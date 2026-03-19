@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Data Portfolio — Design System</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<style>
+@keyframes fadeSlideIn{0%{opacity:0;transform:translateY(30px);filter:blur(8px)}100%{opacity:1;transform:translateY(0);filter:blur(0)}}
+@keyframes beamDrop{0%{transform:translateY(-100%);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(100%);opacity:0}}
+@keyframes beamSlide{0%{transform:translateX(-100%);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateX(100%);opacity:0}}
+@keyframes pulse-glow{0%,100%{box-shadow:0 0 20px rgba(249,115,22,0.15)}50%{box-shadow:0 0 40px rgba(249,115,22,0.3)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes countUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scan-line{0%{top:-2px}100%{top:100%}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes particle-float{0%,100%{transform:translate(0,0) scale(1);opacity:0.3}25%{transform:translate(10px,-20px) scale(1.2);opacity:0.6}50%{transform:translate(-5px,-40px) scale(0.8);opacity:0.4}75%{transform:translate(15px,-20px) scale(1.1);opacity:0.5}}
+
+body{font-family:'Inter',sans-serif;background:#050505;overflow-x:hidden}
+.font-mono{font-family:'JetBrains Mono',monospace!important}
+.grid-bg{background-image:linear-gradient(to right,rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse at center,black 40%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at center,black 40%,transparent 70%)}
+.beam-v{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.05);overflow:hidden;z-index:10}
+.beam-v::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent,#F97316,transparent);transform:translateY(-100%);animation:beamDrop 5s cubic-bezier(.4,0,.2,1) infinite;opacity:0.7}
+.beam-h{position:absolute;left:0;right:0;height:1px;background:rgba(255,255,255,0.05);overflow:hidden;z-index:10}
+.beam-h::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,transparent,#F97316,transparent);transform:translateX(-100%);animation:beamSlide 7s cubic-bezier(.4,0,.2,1) infinite;animation-delay:2.5s;opacity:0.7}
+.floating-card{transition:transform .5s cubic-bezier(.25,.46,.45,.94),box-shadow .5s ease;will-change:transform}
+.floating-card:hover{transform:scale(1.08) translateY(-10px)!important;z-index:50;box-shadow:0 25px 50px -12px rgba(0,0,0,.5);border-color:rgba(249,115,22,0.3)!important}
+.btn-corner{position:relative;display:inline-flex;align-items:center;justify-content:center;padding:1rem;border:1px solid rgba(255,255,255,0.1);transition:all .3s ease}
+.btn-corner::before,.btn-corner::after{content:'';position:absolute;width:8px;height:8px;border-color:#F97316;opacity:0;transition:all .3s ease}
+.btn-corner::before{top:0;left:0;border-top:1px solid;border-left:1px solid;transform:translate(-4px,-4px)}
+.btn-corner::after{bottom:0;right:0;border-bottom:1px solid;border-right:1px solid;transform:translate(4px,4px)}
+.btn-corner:hover::before,.btn-corner:hover::after{opacity:1;transform:translate(0,0)}
+.btn-corner:hover{border-color:#F97316;background:rgba(249,115,22,0.05)}
+.border-gradient{position:relative}
+.border-gradient::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;background:linear-gradient(225deg,rgba(255,255,255,0) 0%,rgba(255,255,255,0.2) 50%,rgba(255,255,255,0) 100%);pointer-events:none}
+.section-label{display:inline-flex;align-items:center;gap:.75rem;font-family:'JetBrains Mono',monospace;font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;color:rgba(255,255,255,0.3);margin-bottom:3rem}
+.section-label span{color:#F97316;font-weight:600}
+.scan-line{position:absolute;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,#F97316,transparent);opacity:0.15;animation:scan-line 4s linear infinite}
+.magnetic-area{transition:transform .2s ease-out}
+
+@media(prefers-reduced-motion:reduce){*{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
+</style>
+<script>
+(function(){const s=document.createElement("style");s.textContent=".animate-on-scroll{animation-play-state:paused!important}.animate-on-scroll.animate{animation-play-state:running!important}";document.head.appendChild(s);if(!window.__inViewIO){window.__inViewIO=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.target.classList.add("animate");window.__inViewIO.unobserve(en.target)}})},{threshold:0.1,rootMargin:"0px 0px -5% 0px"})}window.initInViewAnimations=function(sel=".animate-on-scroll"){document.querySelectorAll(sel).forEach(el=>window.__inViewIO.observe(el))};document.addEventListener("DOMContentLoaded",()=>initInViewAnimations())})();
+</script>
+</head>
+<body class="text-neutral-300 min-h-screen flex flex-col selection:bg-[#F97316] selection:text-black">
+
+<!-- BG Grid -->
+<div class="fixed inset-0 grid-bg pointer-events-none z-0"></div>
+
+<!-- NAV -->
+<nav class="fixed top-0 left-0 w-full z-[100] bg-black/80 backdrop-blur-md border-b border-white/10 px-6 py-4 flex justify-between items-center">
+<a href="#" class="flex items-center gap-2 text-white hover:text-[#F97316] transition-colors">
+<div class="w-3 h-3 bg-[#F97316]"></div>
+<span class="font-mono text-xs uppercase tracking-widest">Data Portfolio DS</span>
+</a>
+<div class="hidden md:flex gap-8 font-mono text-xs uppercase tracking-widest text-neutral-500">
+<a href="#hero" class="hover:text-[#F97316] transition-colors">Intro</a>
+<a href="#typography" class="hover:text-[#F97316] transition-colors">Type</a>
+<a href="#colors" class="hover:text-[#F97316] transition-colors">Colors</a>
+<a href="#components" class="hover:text-[#F97316] transition-colors">Components</a>
+<a href="#layout" class="hover:text-[#F97316] transition-colors">Layout</a>
+<a href="#motion" class="hover:text-[#F97316] transition-colors">Motion</a>
+<a href="#data" class="hover:text-[#F97316] transition-colors">Data</a>
+</div>
+</nav>
+
+<!-- HERO -->
+<section id="hero" class="pt-24 relative min-h-screen flex items-center">
+<div class="absolute inset-0 grid-bg pointer-events-none z-0"></div>
+<!-- Particles -->
+<div class="absolute inset-0 overflow-hidden pointer-events-none z-0" id="particles"></div>
+<main class="grid grid-cols-1 lg:grid-cols-12 px-6 lg:px-12 gap-12 relative z-20 w-full max-w-[90rem] mx-auto">
+<div class="lg:col-span-7 flex flex-col justify-center pt-10 lg:pt-0">
+<!-- Pill -->
+<div class="mb-6 animate-on-scroll" style="animation:fadeSlideIn .8s ease-out .1s both">
+<div class="inline-flex items-center gap-2 bg-white/5 px-3 py-1.5 text-xs text-neutral-300 border border-white/10">
+<span class="bg-[#F97316]/20 text-[#F97316] px-2 py-0.5 font-mono font-semibold">v1.0</span>
+<span class="font-medium">Design System</span>
+</div>
+</div>
+<h1 class="text-6xl lg:text-[7.5rem] leading-[0.9] uppercase font-medium text-white tracking-tighter mb-8 animate-on-scroll" style="animation:fadeSlideIn .8s ease-out .2s both">
+Data<br/><span class="text-neutral-600">Port</span>folio
+</h1>
+<p class="text-lg text-neutral-400 max-w-md leading-relaxed mb-12 font-light animate-on-scroll" style="animation:fadeSlideIn .8s ease-out .4s both">
+The living pattern library for a data-driven interface. Modular, parametric, and built to impress.
+</p>
+<div class="animate-on-scroll" style="animation:fadeSlideIn .8s ease-out .6s both">
+<a class="btn-corner group" href="#typography">
+<span class="flex items-center gap-3 text-white font-medium uppercase tracking-wider text-sm">
+Explore System
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+</span>
+</a>
+</div>
+</div>
+<!-- Floating Cards -->
+<div class="lg:col-span-5 relative h-[500px] lg:h-auto flex items-center justify-center animate-on-scroll" style="animation:fadeSlideIn .8s ease-out .8s both;perspective:1000px">
+<div class="relative z-10 w-56 aspect-[4/5] bg-neutral-900 border border-white/10 shadow-2xl floating-card" style="transform:rotate(-2deg)">
+<div class="w-full h-full bg-gradient-to-br from-[#F97316]/20 via-transparent to-transparent flex items-center justify-center">
+<span class="iconify text-6xl text-white/20" data-icon="solar:chart-2-bold-duotone"></span>
+</div>
+<div class="absolute bottom-4 left-4 bg-black/60 px-3 py-1 border border-white/10"><span class="text-[10px] font-mono uppercase text-white">Fig. 01</span></div>
+</div>
+<div class="absolute top-[10%] left-[5%] w-36 aspect-square bg-neutral-900 border border-white/10 shadow-xl floating-card z-0" style="transform:rotate(-6deg);animation:float 6s ease-in-out infinite">
+<div class="w-full h-full bg-gradient-to-br from-[#F97316]/10 via-transparent to-transparent flex items-center justify-center">
+<span class="iconify text-4xl text-white/15" data-icon="solar:database-bold-duotone"></span>
+</div>
+</div>
+<div class="absolute bottom-[15%] right-[5%] w-44 aspect-square bg-neutral-900 border border-white/10 shadow-xl floating-card z-20" style="transform:rotate(3deg);animation:float 7s ease-in-out 1s infinite">
+<div class="w-full h-full bg-gradient-to-br from-[#F97316]/10 via-transparent to-transparent flex items-center justify-center">
+<span class="iconify text-5xl text-white/15" data-icon="solar:code-bold-duotone"></span>
+</div>
+</div>
+</div>
+</main>
+</section>
+
+<!-- SECTION 1: TYPOGRAPHY -->
+<section id="typography" class="py-24 px-6 lg:px-12 max-w-[90rem] mx-auto border-t border-white/5 relative z-20">
+<div class="section-label animate-on-scroll" style="animation:fadeSlideIn .6s ease-out 0s both"><span>01</span> Typography</div>
+<div class="space-y-16">
+<!-- H1 -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 border-b border-white/5 pb-12 animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .1s both">
+<div class="md:col-span-1 text-xs font-mono text-neutral-600 uppercase tracking-widest">Display H1<br/><span class="text-neutral-700">7.5rem / 0.9 lh</span></div>
+<div class="md:col-span-3"><h1 class="text-[4rem] lg:text-[7.5rem] leading-[0.9] uppercase text-white font-medium tracking-tighter">Data Insights</h1></div>
+</div>
+<!-- H2 -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 border-b border-white/5 pb-12 animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .15s both">
+<div class="md:col-span-1 text-xs font-mono text-neutral-600 uppercase tracking-widest">Display H2<br/><span class="text-neutral-700">4.5rem / 0.95 lh</span></div>
+<div class="md:col-span-3"><h2 class="text-4xl lg:text-[4.5rem] leading-[0.95] text-white font-normal tracking-tight">Analytical intelligence engine.</h2></div>
+</div>
+<!-- H3 -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 border-b border-white/5 pb-12 animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .2s both">
+<div class="md:col-span-1 text-xs font-mono text-neutral-600 uppercase tracking-widest">Section Heading<br/><span class="text-neutral-700">3rem / Tight</span></div>
+<div class="md:col-span-3"><h3 class="text-4xl lg:text-5xl font-normal text-white tracking-tight">Pipeline v2.0</h3></div>
+</div>
+<!-- Card Title -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 border-b border-white/5 pb-12 animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .25s both">
+<div class="md:col-span-1 text-xs font-mono text-neutral-600 uppercase tracking-widest">Card Title<br/><span class="text-neutral-700">1.125rem / Medium</span></div>
+<div class="md:col-span-3"><h4 class="text-white font-medium text-lg">Data Transformations</h4></div>
+</div>
+<!-- Body -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 border-b border-white/5 pb-12 animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .3s both">
+<div class="md:col-span-1 text-xs font-mono text-neutral-600 uppercase tracking-widest">Body Large<br/><span class="text-neutral-700">1.125rem / Relaxed</span></div>
+<div class="md:col-span-3"><p class="text-lg text-neutral-400 leading-relaxed font-light max-w-2xl">A complete data portfolio showcasing ETL pipelines, machine learning models, and interactive dashboards with real-time analytics.</p></div>
+</div>
+<!-- Code / Mono -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 border-b border-white/5 pb-12 animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .35s both">
+<div class="md:col-span-1 text-xs font-mono text-neutral-600 uppercase tracking-widest">Code / Mono<br/><span class="text-neutral-700">JetBrains Mono</span></div>
+<div class="md:col-span-3"><code class="font-mono text-[#F97316] text-sm bg-white/5 px-4 py-2 border border-white/10 inline-block">SELECT * FROM insights WHERE score > 0.95</code></div>
+</div>
+<!-- Label -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .4s both">
+<div class="md:col-span-1 text-xs font-mono text-neutral-600 uppercase tracking-widest">Label / UI<br/><span class="text-neutral-700">0.75rem / Tracking Widest</span></div>
+<div class="md:col-span-3"><span class="text-xs font-semibold text-neutral-600 uppercase tracking-widest">Model Accuracy</span></div>
+</div>
+</div>
+</section>
+
+<!-- SECTION 2: COLORS & SURFACES -->
+<section id="colors" class="py-24 px-6 lg:px-12 max-w-[90rem] mx-auto border-t border-white/5 relative z-20">
+<div class="section-label animate-on-scroll" style="animation:fadeSlideIn .6s ease-out 0s both"><span>02</span> Colors & Surfaces</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-6 animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .1s both">
+<div class="space-y-3"><div class="w-full aspect-square bg-[#F97316] border border-white/10 shadow-2xl transition-transform hover:scale-105" style="animation:pulse-glow 3s ease-in-out infinite"></div><div class="text-xs font-mono text-neutral-500 uppercase tracking-widest"><span class="text-white block">Accent</span>#F97316</div></div>
+<div class="space-y-3"><div class="w-full aspect-square bg-[#050505] border border-white/10 shadow-2xl transition-transform hover:scale-105"></div><div class="text-xs font-mono text-neutral-500 uppercase tracking-widest"><span class="text-white block">Background</span>#050505</div></div>
+<div class="space-y-3"><div class="w-full aspect-square bg-[#0A0A0A] border border-white/10 shadow-2xl transition-transform hover:scale-105"></div><div class="text-xs font-mono text-neutral-500 uppercase tracking-widest"><span class="text-white block">Surface</span>#0A0A0A</div></div>
+<div class="space-y-3"><div class="w-full aspect-square bg-neutral-900 border border-white/10 shadow-2xl transition-transform hover:scale-105"></div><div class="text-xs font-mono text-neutral-500 uppercase tracking-widest"><span class="text-white block">Neutral 900</span>#171717</div></div>
+<div class="space-y-3"><div class="w-full aspect-square bg-[#22C55E] border border-white/10 shadow-2xl transition-transform hover:scale-105"></div><div class="text-xs font-mono text-neutral-500 uppercase tracking-widest"><span class="text-white block">Success</span>#22C55E</div></div>
+<div class="space-y-3"><div class="w-full aspect-square bg-[#EAB308] border border-white/10 shadow-2xl transition-transform hover:scale-105"></div><div class="text-xs font-mono text-neutral-500 uppercase tracking-widest"><span class="text-white block">Warning</span>#EAB308</div></div>
+<div class="space-y-3"><div class="w-full aspect-square bg-[#EF4444] border border-white/10 shadow-2xl transition-transform hover:scale-105"></div><div class="text-xs font-mono text-neutral-500 uppercase tracking-widest"><span class="text-white block">Danger</span>#EF4444</div></div>
+</div>
+<!-- Gradients -->
+<div class="mt-12 animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .2s both">
+<h3 class="text-sm font-mono text-neutral-500 mb-6 uppercase tracking-wider">Gradients & Borders</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="h-24 border-gradient bg-white/5 flex items-center justify-center"><span class="text-sm text-white/40 font-mono">.border-gradient</span></div>
+<div class="h-24 border border-white/10 relative overflow-hidden flex items-center justify-center bg-gradient-to-r from-[#F97316]/20 via-transparent to-transparent"><span class="text-sm text-white/40 font-mono relative z-10">Accent Gradient</span></div>
+<div class="h-24 border border-white/10 relative overflow-hidden flex items-center justify-center"><div class="scan-line"></div><span class="text-sm text-white/40 font-mono relative z-10">Scan Line Effect</span></div>
+</div>
+</div>
+</section>
+
+<!-- SECTION 3: UI COMPONENTS -->
+<section id="components" class="py-24 px-6 lg:px-12 max-w-[90rem] mx-auto border-t border-white/5 relative z-20">
+<div class="section-label animate-on-scroll" style="animation:fadeSlideIn .6s ease-out 0s both"><span>03</span> UI Components</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+<!-- Left: Buttons & Inputs -->
+<div class="space-y-12 animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .1s both">
+<!-- Corner Accent Button -->
+<div class="p-8 border border-white/5 bg-[#0A0A0A] flex flex-col gap-6 items-start">
+<span class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Primary — Corner Accent</span>
+<a class="btn-corner group" href="#">
+<span class="flex items-center gap-3 text-white font-medium uppercase tracking-wider text-sm">View Projects <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></span>
+</a>
+</div>
+<!-- Beam Button -->
+<div class="p-8 border border-white/5 bg-[#0A0A0A] flex flex-col gap-6 items-start">
+<span class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Gradient Beam Button</span>
+<a class="group relative isolate inline-flex items-center justify-center gap-2 overflow-hidden bg-transparent px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:shadow-[0_0_30px_-5px_rgba(249,115,22,0.3)]" href="#" style="--spread:90deg;--shimmer-color:#F97316;--speed:3s">
+<div class="absolute inset-0 -z-20 overflow-hidden"><div class="absolute inset-[-100%] w-[300%] h-[300%] animate-[spin_3s_linear_infinite]"><div class="absolute inset-0" style="background:conic-gradient(from calc(270deg - (var(--spread) * 0.5)),transparent 0,var(--shimmer-color) var(--spread),transparent var(--spread))"></div></div></div>
+<div class="absolute inset-[1px] -z-10 bg-[#050505] transition-colors duration-300 group-hover:bg-[#0A0A0A]"></div>
+<span class="iconify" data-icon="solar:download-minimalistic-bold-duotone" style="color:#F97316"></span> Download CV
+</a>
+</div>
+<!-- Glass Button -->
+<div class="p-8 border border-white/5 bg-[#0A0A0A] flex flex-col gap-6 items-start">
+<span class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Secondary — Glass</span>
+<button class="inline-flex gap-2 border-gradient hover:text-white transition-all hover:-translate-y-0.5 text-sm font-medium text-white/80 bg-white/5 rounded-full px-5 py-3 backdrop-blur-xl items-center" style="border-radius:9999px">
+<span class="iconify" data-icon="solar:play-circle-bold-duotone"></span> Watch Demo
+</button>
+</div>
+<!-- Input -->
+<div class="p-8 border border-white/5 bg-[#0A0A0A] flex flex-col gap-6 items-start">
+<span class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Input Group</span>
+<div class="bg-[#0A0A0A] border border-white/10 rounded-full py-3 pl-6 pr-2 flex items-center gap-4 shadow-2xl w-full group hover:border-[#F97316]/50 transition-colors">
+<input class="bg-transparent border-none outline-none text-white text-sm w-full placeholder:text-neutral-600 font-mono" placeholder="Search datasets..." type="text"/>
+<button class="w-8 h-8 bg-white text-black rounded-full flex items-center justify-center hover:bg-[#F97316] transition-colors shrink-0">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13.25 12.75V18L19.25 12L13.25 6V11.25H4"/></svg>
+</button>
+</div>
+</div>
+</div>
+<!-- Right: Cards & Badges -->
+<div class="space-y-12 animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .2s both">
+<!-- System Card -->
+<div class="p-8 border border-white/5 bg-[#0A0A0A] flex flex-col gap-6">
+<span class="text-xs font-mono text-neutral-500 uppercase tracking-widest">System Card</span>
+<div class="w-full group">
+<div class="aspect-[4/3] bg-[#050505] border border-white/10 relative overflow-hidden mb-4 transition-colors group-hover:border-[#F97316]/30">
+<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-50"></div>
+<div class="absolute w-32 h-32 bg-[#F97316]/10 rounded-full blur-3xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:bg-[#F97316]/20 transition-colors"></div>
+<div class="absolute inset-0 flex items-center justify-center"><span class="iconify text-4xl text-white/60" data-icon="solar:layers-minimalistic-bold-duotone"></span></div>
+</div>
+<h3 class="text-white font-medium text-lg">Data Pipelines</h3>
+<p class="text-neutral-500 text-sm mt-1">Automated ETL workflows for batch and streaming data.</p>
+</div>
+</div>
+<!-- Stat Card Light -->
+<div class="p-8 border border-white/5 bg-[#0A0A0A] flex flex-col gap-6">
+<span class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Stat Card (Light)</span>
+<div class="bg-white text-neutral-900 p-6 border-gradient" style="background:linear-gradient(225deg,rgba(255,255,255,0.95),#fff,rgba(255,255,255,0.95))">
+<p class="text-4xl tracking-tighter font-medium">98.7%</p>
+<p class="mt-2 text-sm text-neutral-600 font-medium">Model Accuracy</p>
+</div>
+</div>
+<!-- Pills -->
+<div class="p-8 border border-white/5 bg-[#0A0A0A] flex flex-col gap-6">
+<span class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Pills & Badges</span>
+<div class="flex flex-wrap gap-3">
+<span class="inline-flex items-center bg-[#F97316]/15 text-[#F97316] px-2.5 py-1 text-xs font-medium font-mono">Python</span>
+<span class="inline-flex items-center bg-[#22C55E]/15 text-[#22C55E] px-2.5 py-1 text-xs font-medium font-mono">Live</span>
+<span class="inline-flex items-center border-gradient bg-white/5 text-white/70 rounded-full px-3 py-1 text-xs backdrop-blur" style="border-radius:9999px">
+<span class="w-2 h-2 rounded-full bg-[#F97316] mr-2"></span>Processing
+</span>
+<span class="inline-flex items-center bg-white/5 text-neutral-400 px-2.5 py-1 text-xs font-mono border border-white/10">SQL</span>
+<span class="inline-flex items-center bg-white/5 text-neutral-400 px-2.5 py-1 text-xs font-mono border border-white/10">Spark</span>
+</div>
+</div>
+<!-- Callout -->
+<div class="p-8 border border-white/5 bg-[#0A0A0A] flex flex-col gap-6">
+<span class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Callout Card</span>
+<div class="w-full bg-[#111] border border-white/10 p-4 shadow-2xl hover:-translate-y-2 transition-transform duration-300 group cursor-pointer">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 bg-[#F97316] flex items-center justify-center text-black font-bold shrink-0"><span class="iconify" data-icon="solar:graph-up-bold-duotone"></span></div>
+<div><p class="text-white font-medium text-sm leading-tight group-hover:text-[#F97316] transition-colors">Why Data Matters</p><p class="text-neutral-500 text-xs mt-1">How analytics drove 3x revenue growth.</p></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SECTION 4: LAYOUT -->
+<section id="layout" class="py-24 px-6 lg:px-12 max-w-[90rem] mx-auto border-t border-white/5 relative z-20">
+<div class="section-label animate-on-scroll" style="animation:fadeSlideIn .6s ease-out 0s both"><span>04</span> Layout & Grid</div>
+<!-- 12 col grid -->
+<div class="grid grid-cols-12 gap-4 mb-12 animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .1s both">
+<div class="col-span-1 h-12 bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-mono text-neutral-500">1</div>
+<div class="col-span-1 h-12 bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-mono text-neutral-500">2</div>
+<div class="col-span-1 h-12 bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-mono text-neutral-500">3</div>
+<div class="col-span-1 h-12 bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-mono text-neutral-500">4</div>
+<div class="col-span-1 h-12 bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-mono text-neutral-500">5</div>
+<div class="col-span-1 h-12 bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-mono text-neutral-500">6</div>
+<div class="col-span-1 h-12 bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-mono text-neutral-500">7</div>
+<div class="col-span-1 h-12 bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-mono text-neutral-500">8</div>
+<div class="col-span-1 h-12 bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-mono text-neutral-500">9</div>
+<div class="col-span-1 h-12 bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-mono text-neutral-500">10</div>
+<div class="col-span-1 h-12 bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-mono text-neutral-500">11</div>
+<div class="col-span-1 h-12 bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-mono text-neutral-500">12</div>
+</div>
+<!-- Metric Grid -->
+<div class="p-8 border border-white/5 bg-[#0A0A0A] animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .2s both">
+<span class="text-xs font-mono text-neutral-500 uppercase tracking-widest block mb-8">Pattern: 4 Column Metric Grid</span>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="flex flex-col group cursor-default"><span class="text-4xl font-light text-white tracking-tighter group-hover:text-[#F97316] transition-colors duration-300">25+</span><span class="text-xs font-semibold text-neutral-600 uppercase tracking-widest group-hover:text-white transition-colors mt-3">Projects</span></div>
+<div class="flex flex-col group cursor-default"><span class="text-4xl font-light text-white tracking-tighter group-hover:text-[#F97316] transition-colors duration-300">99.2%</span><span class="text-xs font-semibold text-neutral-600 uppercase tracking-widest group-hover:text-white transition-colors mt-3">Uptime</span></div>
+<div class="flex flex-col group cursor-default"><span class="text-4xl font-light text-white tracking-tighter group-hover:text-[#F97316] transition-colors duration-300">5M+</span><span class="text-xs font-semibold text-neutral-600 uppercase tracking-widest group-hover:text-white transition-colors mt-3">Rows Processed</span></div>
+<div class="flex flex-col group cursor-default"><span class="text-4xl font-light text-white tracking-tighter group-hover:text-[#F97316] transition-colors duration-300">< 2s</span><span class="text-xs font-semibold text-neutral-600 uppercase tracking-widest group-hover:text-white transition-colors mt-3">Query Latency</span></div>
+</div>
+</div>
+</section>
+
+<!-- SECTION 5: MOTION -->
+<section id="motion" class="py-24 px-6 lg:px-12 max-w-[90rem] mx-auto border-t border-white/5 relative z-20">
+<div class="section-label animate-on-scroll" style="animation:fadeSlideIn .6s ease-out 0s both"><span>05</span> Motion & Interaction</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Float & Lift -->
+<div class="p-8 border border-white/5 bg-[#0A0A0A] flex flex-col items-center justify-center h-64 overflow-hidden relative animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .1s both">
+<span class="absolute top-4 left-4 text-xs font-mono text-neutral-500 uppercase tracking-widest">Hover: Float & Lift</span>
+<div class="w-24 h-32 bg-neutral-900 border border-white/10 shadow-xl floating-card cursor-pointer flex items-center justify-center text-xs text-neutral-500 font-mono">Hover Me</div>
+</div>
+<!-- Beam Border -->
+<div class="p-8 border border-white/5 bg-[#0A0A0A] flex flex-col items-center justify-center h-64 relative overflow-hidden animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .15s both">
+<span class="absolute top-4 left-4 text-xs font-mono text-neutral-500 uppercase tracking-widest">Ambient: Beam Border</span>
+<div class="relative w-full h-full flex items-center justify-center">
+<div class="beam-h" style="bottom:50%"></div>
+<div class="beam-v" style="left:50%"></div>
+<span class="text-xs text-neutral-700 font-mono">Continuous beam...</span>
+</div>
+</div>
+<!-- Fade Slide In -->
+<div class="p-8 border border-white/5 bg-[#0A0A0A] flex flex-col items-center justify-center h-64 relative overflow-hidden animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .2s both">
+<span class="absolute top-4 left-4 text-xs font-mono text-neutral-500 uppercase tracking-widest">Entrance: Fade Slide In</span>
+<div class="w-12 h-12 bg-[#F97316]" id="replay-box" style="animation:fadeSlideIn .8s ease-out 0s both"></div>
+<button onclick="const b=document.getElementById('replay-box');b.style.animation='none';b.offsetHeight;b.style.animation='fadeSlideIn .8s ease-out 0s both'" class="absolute bottom-4 right-4 text-[10px] text-white/50 underline font-mono">Replay</button>
+</div>
+<!-- Magnetic Hover -->
+<div class="p-8 border border-white/5 bg-[#0A0A0A] flex flex-col items-center justify-center h-64 relative overflow-hidden animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .25s both">
+<span class="absolute top-4 left-4 text-xs font-mono text-neutral-500 uppercase tracking-widest">Magnetic Cursor</span>
+<div class="w-20 h-20 bg-[#F97316] flex items-center justify-center text-black text-xs font-mono font-bold magnetic-area cursor-pointer">PULL</div>
+</div>
+<!-- Pulse Glow -->
+<div class="p-8 border border-white/5 bg-[#0A0A0A] flex flex-col items-center justify-center h-64 relative overflow-hidden animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .3s both">
+<span class="absolute top-4 left-4 text-xs font-mono text-neutral-500 uppercase tracking-widest">Pulse Glow</span>
+<div class="w-16 h-16 bg-[#F97316] flex items-center justify-center" style="animation:pulse-glow 2s ease-in-out infinite"><span class="iconify text-2xl text-black" data-icon="solar:graph-up-bold-duotone"></span></div>
+</div>
+<!-- Staggered Reveal -->
+<div class="p-8 border border-white/5 bg-[#0A0A0A] flex flex-col items-center justify-center h-64 relative overflow-hidden animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .35s both">
+<span class="absolute top-4 left-4 text-xs font-mono text-neutral-500 uppercase tracking-widest">Staggered Reveal</span>
+<div class="flex gap-2">
+<div class="w-8 h-8 bg-[#F97316] animate-on-scroll animate" style="animation:fadeSlideIn .5s ease-out 0s both"></div>
+<div class="w-8 h-8 bg-[#F97316]/80 animate-on-scroll animate" style="animation:fadeSlideIn .5s ease-out .1s both"></div>
+<div class="w-8 h-8 bg-[#F97316]/60 animate-on-scroll animate" style="animation:fadeSlideIn .5s ease-out .2s both"></div>
+<div class="w-8 h-8 bg-[#F97316]/40 animate-on-scroll animate" style="animation:fadeSlideIn .5s ease-out .3s both"></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SECTION 6: ICONS -->
+<section class="py-24 px-6 lg:px-12 max-w-[90rem] mx-auto border-t border-white/5 relative z-20">
+<div class="section-label animate-on-scroll" style="animation:fadeSlideIn .6s ease-out 0s both"><span>06</span> Iconography — Solar Duotone</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .1s both">
+<div class="p-5 border border-white/5 bg-[#0A0A0A] flex flex-col items-center justify-center gap-2 text-white/70 hover:text-[#F97316] transition-colors cursor-pointer group"><span class="iconify text-2xl" data-icon="solar:chart-2-bold-duotone"></span><span class="text-[10px] font-mono text-neutral-600 group-hover:text-white/50">Chart</span></div>
+<div class="p-5 border border-white/5 bg-[#0A0A0A] flex flex-col items-center justify-center gap-2 text-white/70 hover:text-[#F97316] transition-colors cursor-pointer group"><span class="iconify text-2xl" data-icon="solar:database-bold-duotone"></span><span class="text-[10px] font-mono text-neutral-600 group-hover:text-white/50">Database</span></div>
+<div class="p-5 border border-white/5 bg-[#0A0A0A] flex flex-col items-center justify-center gap-2 text-white/70 hover:text-[#F97316] transition-colors cursor-pointer group"><span class="iconify text-2xl" data-icon="solar:code-bold-duotone"></span><span class="text-[10px] font-mono text-neutral-600 group-hover:text-white/50">Code</span></div>
+<div class="p-5 border border-white/5 bg-[#0A0A0A] flex flex-col items-center justify-center gap-2 text-white/70 hover:text-[#F97316] transition-colors cursor-pointer group"><span class="iconify text-2xl" data-icon="solar:graph-up-bold-duotone"></span><span class="text-[10px] font-mono text-neutral-600 group-hover:text-white/50">Graph</span></div>
+<div class="p-5 border border-white/5 bg-[#0A0A0A] flex flex-col items-center justify-center gap-2 text-white/70 hover:text-[#F97316] transition-colors cursor-pointer group"><span class="iconify text-2xl" data-icon="solar:server-bold-duotone"></span><span class="text-[10px] font-mono text-neutral-600 group-hover:text-white/50">Server</span></div>
+<div class="p-5 border border-white/5 bg-[#0A0A0A] flex flex-col items-center justify-center gap-2 text-white/70 hover:text-[#F97316] transition-colors cursor-pointer group"><span class="iconify text-2xl" data-icon="solar:tuning-2-bold-duotone"></span><span class="text-[10px] font-mono text-neutral-600 group-hover:text-white/50">Pipeline</span></div>
+<div class="p-5 border border-white/5 bg-[#0A0A0A] flex flex-col items-center justify-center gap-2 text-white/70 hover:text-[#F97316] transition-colors cursor-pointer group"><span class="iconify text-2xl" data-icon="solar:shield-check-bold-duotone"></span><span class="text-[10px] font-mono text-neutral-600 group-hover:text-white/50">Security</span></div>
+<div class="p-5 border border-white/5 bg-[#0A0A0A] flex flex-col items-center justify-center gap-2 text-white/70 hover:text-[#F97316] transition-colors cursor-pointer group"><span class="iconify text-2xl" data-icon="solar:cloud-bold-duotone"></span><span class="text-[10px] font-mono text-neutral-600 group-hover:text-white/50">Cloud</span></div>
+</div>
+</section>
+
+<!-- SECTION 7: DATA COMPONENTS -->
+<section id="data" class="py-24 px-6 lg:px-12 max-w-[90rem] mx-auto border-t border-white/5 relative z-20 mb-24">
+<div class="section-label animate-on-scroll" style="animation:fadeSlideIn .6s ease-out 0s both"><span>07</span> Data Components</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Counter Cards -->
+<div class="p-8 border border-white/5 bg-[#0A0A0A] animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .1s both">
+<span class="text-xs font-mono text-neutral-500 uppercase tracking-widest block mb-6">Animated Counter</span>
+<div class="space-y-6">
+<div>
+<p class="text-5xl tracking-tighter text-white font-medium" data-counter="2500000" data-suffix="">2,500,000</p>
+<p class="mt-2 text-sm text-neutral-500 font-mono">Records Processed</p>
+</div>
+<div>
+<p class="text-5xl tracking-tighter text-[#F97316] font-medium" data-counter="98" data-suffix="%">98%</p>
+<p class="mt-2 text-sm text-neutral-500 font-mono">Data Quality Score</p>
+</div>
+</div>
+</div>
+<!-- Mini Sparkline -->
+<div class="p-8 border border-white/5 bg-[#0A0A0A] animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .15s both">
+<span class="text-xs font-mono text-neutral-500 uppercase tracking-widest block mb-6">Inline Sparkline</span>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div><p class="text-white font-medium">CPU Usage</p><p class="text-xs text-neutral-500 font-mono">Last 24h</p></div>
+<svg width="120" height="40" class="text-[#F97316]"><polyline fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,35 10,28 20,30 30,15 40,20 50,10 60,18 70,5 80,12 90,8 100,15 110,10 120,5"/><polyline fill="url(#sparkGrad)" stroke="none" points="0,40 0,35 10,28 20,30 30,15 40,20 50,10 60,18 70,5 80,12 90,8 100,15 110,10 120,5 120,40"/><defs><linearGradient id="sparkGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F97316" stop-opacity="0.3"/><stop offset="100%" stop-color="#F97316" stop-opacity="0"/></linearGradient></defs></svg>
+</div>
+<div class="flex items-center justify-between">
+<div><p class="text-white font-medium">Queries/s</p><p class="text-xs text-neutral-500 font-mono">Last 24h</p></div>
+<svg width="120" height="40" class="text-[#22C55E]"><polyline fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,30 10,25 20,28 30,20 40,15 50,22 60,10 70,15 80,8 90,12 100,5 110,8 120,3"/><polyline fill="url(#sparkGrad2)" stroke="none" points="0,40 0,30 10,25 20,28 30,20 40,15 50,22 60,10 70,15 80,8 90,12 100,5 110,8 120,3 120,40"/><defs><linearGradient id="sparkGrad2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#22C55E" stop-opacity="0.3"/><stop offset="100%" stop-color="#22C55E" stop-opacity="0"/></linearGradient></defs></svg>
+</div>
+</div>
+</div>
+<!-- Data Table Preview -->
+<div class="p-8 border border-white/5 bg-[#0A0A0A] animate-on-scroll" style="animation:fadeSlideIn .6s ease-out .2s both">
+<span class="text-xs font-mono text-neutral-500 uppercase tracking-widest block mb-6">Data Table Preview</span>
+<div class="overflow-hidden border border-white/10">
+<table class="w-full text-xs font-mono">
+<thead><tr class="bg-white/5 text-neutral-400"><th class="text-left p-3">Model</th><th class="text-left p-3">Acc</th><th class="text-left p-3">Status</th></tr></thead>
+<tbody class="text-neutral-300">
+<tr class="border-t border-white/5 hover:bg-white/5 transition-colors"><td class="p-3">XGBoost</td><td class="p-3 text-[#22C55E]">97.3%</td><td class="p-3"><span class="w-2 h-2 rounded-full bg-[#22C55E] inline-block mr-1"></span>Active</td></tr>
+<tr class="border-t border-white/5 hover:bg-white/5 transition-colors"><td class="p-3">LightGBM</td><td class="p-3 text-[#22C55E]">96.8%</td><td class="p-3"><span class="w-2 h-2 rounded-full bg-[#22C55E] inline-block mr-1"></span>Active</td></tr>
+<tr class="border-t border-white/5 hover:bg-white/5 transition-colors"><td class="p-3">Neural Net</td><td class="p-3 text-[#EAB308]">94.1%</td><td class="p-3"><span class="w-2 h-2 rounded-full bg-[#EAB308] inline-block mr-1"></span>Training</td></tr>
+<tr class="border-t border-white/5 hover:bg-white/5 transition-colors"><td class="p-3">Logistic</td><td class="p-3 text-neutral-500">89.2%</td><td class="p-3"><span class="w-2 h-2 rounded-full bg-neutral-500 inline-block mr-1"></span>Archived</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="px-6 lg:px-12 max-w-[90rem] mx-auto mb-16">
+<div class="border border-white/5 bg-[#0A0A0A] p-8 text-center">
+<p class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Data Portfolio Design System — Built for Impact</p>
+</div>
+</footer>
+
+<!-- SCRIPTS -->
+<script>
+// Particles
+(function(){const c=document.getElementById('particles');if(!c)return;for(let i=0;i<30;i++){const d=document.createElement('div');d.style.cssText=`position:absolute;width:${Math.random()*3+1}px;height:${Math.random()*3+1}px;background:#F97316;border-radius:50%;opacity:${Math.random()*0.3+0.1};left:${Math.random()*100}%;top:${Math.random()*100}%;animation:particle-float ${Math.random()*8+6}s ease-in-out ${Math.random()*5}s infinite`;c.appendChild(d)}})();
+// Counter animation
+function animateCounters(){document.querySelectorAll('[data-counter]').forEach(el=>{const t=parseInt(el.dataset.counter);const suffix=el.dataset.suffix||'';let s=0;const d=Math.max(1,Math.floor(2000/t));const i=setInterval(()=>{s+=Math.ceil(t/60);if(s>=t){s=t;clearInterval(i)}el.textContent=s.toLocaleString()+suffix},d)})}
+const cIO=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){animateCounters();cIO.disconnect()}})},{threshold:0.3});
+document.addEventListener('DOMContentLoaded',()=>{const d=document.getElementById('data');if(d)cIO.observe(d)});
+// Magnetic hover
+document.querySelectorAll('.magnetic-area').forEach(el=>{el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect();const x=(e.clientX-r.left-r.width/2)*0.1;const y=(e.clientY-r.top-r.height/2)*0.1;el.style.transform=`translate(${x}px,${y}px)`});el.addEventListener('mouseleave',()=>{el.style.transform='translate(0,0)'})});
+</script>
+</body>
+</html>
